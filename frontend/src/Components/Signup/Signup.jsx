@@ -1,23 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
+  const history = useNavigate();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    console.log(name , password, email);
+
+    try {
+      const response = await axios.post("http://localhost:8000/signup", {
+        name, email, password
+      });
+      console.log("here we go", response.data);
+
+      if (response.data === "exist") {
+        alert("User already exists");
+      } else if (response.data === "notexist") {
+        history("/home", { state: { id: email } });
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
   return (
     <div className="signup">
       <div className="form-container">
         <p className="title">Create account</p>
-        <p className="sub-title">
-          Let's get started with your 30 days free trial
-        </p>
-        <form className="form" action="/signup" method="post">
-          <input type="text" className="input" name="name" placeholder="Name" />
-          <input type="email" className="input" name="email" placeholder="Email" />
-          <input type="password" className="input" name="password" placeholder="Password" />
-          <button className="form-btn" type="submit">Create account</button>
+        <form className="form" method="post">
+          <input
+            type="text"
+            className="input"
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+            placeholder="Name"
+          />
+          <input
+            type="email"
+            className="input"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            placeholder="Email"
+          />
+          <input
+            type="password"
+            className="input"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            placeholder="Password"
+          />
+          <button className="form-btn" type="submit" onClick={handleSubmit}>
+            Create account
+          </button>
         </form>
         <p className="sign-up-label">
-          Already have an account?<Link to='/signin'><span className="sign-up-link">Log in</span></Link>
+          Already have an account?
+          <Link to="/signin">
+            <span className="sign-up-link">Log in</span>
+          </Link>
         </p>
         <div className="buttons-container">
           <div className="apple-login-button">

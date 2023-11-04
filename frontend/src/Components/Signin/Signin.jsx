@@ -1,20 +1,60 @@
-import React from 'react'
+
+import React, {useState } from "react"
 import './Signin.css'
-import { Link } from 'react-router-dom';
+import {useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
 
 
-const Signin = () => {
+
+function Signin  ()  {
+
+  const history = useNavigate();
+ 
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+ 
+  async function handleSubmit(e){
+    e.preventDefault();
+
+    try{
+
+        await axios.post("http://localhost:8000/login",{
+            email,password
+        })
+        .then(res=>{
+            if(res.data==="exist"){
+                history("/home",{state:{id:email}})
+            }
+            else if(res.data==="notexist"){
+                alert("User have not sign up")
+            }
+        })
+        .catch(e=>{
+            alert("wrong details")
+            console.log(e);
+        })
+
+    }
+    catch(e){
+        console.log(e);
+
+    }
+
+}
+
+
   return (
     <div className='signin'>
       <div className="form-container">
         <p className="title">Welcome back</p>
-        <form className="form" action='/signin' method='post'>
-          <input type="email" className="input" name='email' placeholder="Email" />
-          <input type="password" className="input" name='password' placeholder="Password" />
+
+        <form className="form" method='POST'>
+          <input type="email" className="input" name='email' onChange={(e) => { setEmail(e.target.value) }} placeholder="Email" />
+          <input type="password" className="input" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
           <p className="page-link">
             <span className="page-link-label">Forgot Password?</span>
           </p>
-          <button className="form-btn" type='submit'>Log in</button>
+          <button className="form-btn" type='submit' onClick={handleSubmit}>Log in</button>
         </form>
         <p className="sign-up-label">
           Don't have an account? <Link to='/signup'><span className="sign-up-link">Sign up</span></Link>

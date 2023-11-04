@@ -36,9 +36,8 @@ a {
 .land-nav-left {
     display: flex;
     align-items: center;
-    gap: 10px;
-    justify-content: space-around;
-    width: 50%;
+    gap: 30px;
+    width: 80%;
 }
 .land-nav-left ul {
     list-style: none;
