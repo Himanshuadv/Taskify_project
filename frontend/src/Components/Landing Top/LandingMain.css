@@ -1,0 +1,128 @@
+a {
+    text-decoration: none;
+}
+.landing-top {
+  height: 100vh;
+  width: 100vw;
+  background: url("../Assets/landing_back.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.landing-nav {
+  padding: 20px;
+  padding-right: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo img {
+  width: 100px;
+  mix-blend-mode: darken;
+}
+.logo h2 {
+  font-size: 50px;
+  -webkit-text-stroke: 1px rgb(68, 157, 212);
+  color: transparent;
+  font-family: "Merriweather", serif;
+  font-family: "Montserrat", sans-serif;
+  font-family: "Playpen Sans", cursive;
+}
+.land-nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-around;
+    width: 50%;
+}
+.land-nav-left ul {
+    list-style: none;
+    display: flex;
+    gap: 50px;
+}
+
+.land-nav-left ul li {
+    position: relative;
+    color: rgb(68, 157, 230);
+    transition: all 0.3s;
+}
+.land-nav-left ul li::after {
+    content: '';
+    height: 3px;
+    width: 0;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    background-color: rgb(68, 157, 230);
+    transition: all 0.3s;
+    transform: translateX(-50%);
+}
+.land-nav-left ul li:hover::after {
+    width: 100%;
+} 
+
+.land-nav-right a{
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: rgb(68, 157, 230);
+    color: #fff;
+    transition: all 0.3s;
+    text-decoration: none;
+    cursor: pointer;
+}
+.land-nav-right a:active {
+    background-color: rgb(13, 57, 91);
+}
+.land-nav-left-items {
+    color: rgb(68, 157, 230);
+    cursor: pointer;
+    font-size: 20px;
+}
+.text-img-container{
+    padding: 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.text-container {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    overflow-wrap: break-word;
+}
+.logo-img{
+    align-self: center;
+}
+.logo-img img {
+    mix-blend-mode: darken;
+    width: 200px;
+}
+.tagline {
+    margin-top: -30px;
+}
+.tagline h1 {
+    font-size: 80px;
+    color: transparent;
+    -webkit-text-stroke: 1px #000;
+    background: url('../Assets/back.png');
+    -webkit-background-clip: text;
+    background-position: 0 0;
+    animation: back 20s linear infinite;
+}
+
+.desc-text p {
+    font-size: 18px;
+    color: #1b1b1b;
+}
+@keyframes back {
+    100% {
+        background-position: 2000px 0;
+    }
+}

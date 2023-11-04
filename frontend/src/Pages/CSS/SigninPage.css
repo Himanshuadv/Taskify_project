@@ -1,0 +1,21 @@
+.signinPage {
+    width: 100vw;
+    height: 100vh;
+    background: url('../../Components/Assets/sigup_signin_back.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.signin-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.signin-container img{
+    width: 100px;
+    mix-blend-mode: darken;
+    align-self: center;
+}
