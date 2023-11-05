@@ -119,11 +119,11 @@ const Signup = () => {
           </Link>
         </p>
         <div className="buttons-container">
-          <div className="apple-login-button">
+          <div onClick={handleGithubSignUp} className="apple-login-button">
             <AiOutlineGithub size={24} />
-            <span onClick={handleGithubSignUp}>Sign up with Github</span>
+            <span>Sign up with Github</span>
           </div>
-          <div className="google-login-button">
+          <div onClick={handleGoogleSignUp} className="google-login-button">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -159,7 +159,7 @@ const Signup = () => {
 	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
               ></path>{" "}
             </svg>
-            <span onClick={handleGoogleSignUp}>Sign up with Google</span>
+            <span>Sign up with Google</span>
           </div>
         </div>
       </div>

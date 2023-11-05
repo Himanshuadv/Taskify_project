@@ -1,0 +1,89 @@
+.navbar {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(100deg,rgb(26, 88, 195),rgb(64, 134, 238));
+    padding: 10px 50px;
+}
+.home-nav-left{
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+.home-logo {
+    display: flex;
+    align-items: center;
+}
+.home-logo img{
+    width: 50px;
+    mix-blend-mode: darken;
+}
+.home-logo h2 {
+font-size: 30px;
+-webkit-text-stroke: 1px #fff;
+color: transparent;
+font-family: "Merriweather", serif;
+font-family: "Montserrat", sans-serif;
+font-family: "Playpen Sans", cursive;
+}
+.home-nav-left-items ul{
+    display: flex;
+    list-style: none;
+    gap: 50px;
+}
+.home-nav-left-items ul li{
+    color: #fff;
+    font-weight: 600;
+    font-size: 17px;
+    position: relative;
+    cursor: pointer;
+}
+.home-nav-left-items ul li::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    background: rgb(213, 214, 224);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+.home-nav-left-items ul li.clicked::after {
+    width: 100%;
+  }
+.home-nav-right {
+    display: flex;
+    gap: 30px;
+    color: white;
+}
+.msg-icon,.user-icon {
+    cursor: pointer;
+    position: relative;
+}
+
+.msg-icon:hover .msg-icon-tooltip {
+    display: block;
+}
+.msg-icon-tooltip {
+    display: none;
+    position: absolute;
+    top: 130%;
+    left: -20px;
+    padding: 5px;
+    background-color: rgb(104, 101, 101);
+    border-radius: 3px;
+}
+.user-icon:hover .user-icon-tooltip {
+    display: block;
+}
+.user-icon-tooltip {
+    display: none;
+    position: absolute;
+    top: 130%;
+    left: -8px;
+    padding: 5px;
+    background-color: rgb(104, 101, 101);
+    border-radius: 3px;
+}
