@@ -1,8 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+    try {
+      const response = await fetch("http://localhost:5000/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        navigate("/home");
+      } else {
+        const data = await response.json();
+        alert(data.errorMessage);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+  
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
   return (
     <div className="signup">
       <div className="form-container">
@@ -10,14 +50,40 @@ const Login = () => {
         <p className="sub-title">
           Let's get started with your 30 days free trial
         </p>
-        <form className="form" action="/signup" method="post">
-          <input type="text" className="input" name="name" placeholder="Name" />
-          <input type="email" className="input" name="email" placeholder="Email" />
-          <input type="password" className="input" name="password" placeholder="Password" />
-          <button className="form-btn" type="submit">Create account</button>
+        <form onSubmit={handleSubmit} className="form" action="/signup" method="post">
+          <input
+           type="text"
+           className="input" 
+           name="name" 
+           placeholder="Name" 
+           value={formData.name}
+           onChange={handleChange}
+          />
+          <input
+            type="email"
+            className="input"
+            name="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+          <input
+            type="password"
+            className="input"
+            name="password"
+            placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+          <button className="form-btn" type="submit">
+            Create account
+          </button>
         </form>
         <p className="sign-up-label">
-          Already have an account?<Link to='/signin'><span className="sign-up-link">Log in</span></Link>
+          Already have an account?
+          <Link to="/signin">
+            <span className="sign-up-link">Log in</span>
+          </Link>
         </p>
         <div className="buttons-container">
           <div className="apple-login-button">
@@ -79,4 +145,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

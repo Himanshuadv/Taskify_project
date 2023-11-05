@@ -1,23 +1,81 @@
-import React from 'react'
-import './Signin.css'
-import { Link } from 'react-router-dom';
-
+import React, {useState} from "react";
+import "./Signin.css";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signin = () => {
+  const [loginFormData, setLoginFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await fetch("http://localhost:5000/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginFormData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        navigate("/home");
+      } else {
+        const data = await response.json();
+        alert(data.errorMessage);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setLoginFormData({
+      ...loginFormData,
+      [name]: value,
+    });
+  };
+
   return (
-    <div className='signin'>
+    <div className="signin">
       <div className="form-container">
         <p className="title">Welcome back</p>
-        <form className="form" action='/signin' method='post'>
-          <input type="email" className="input" name='email' placeholder="Email" />
-          <input type="password" className="input" name='password' placeholder="Password" />
+        <form onSubmit={handleSubmit} className="form" action="/signin" method="post">
+          <input
+            type="email"
+            className="input"
+            name="email"
+            placeholder="Email"
+            value={loginFormData.email}
+            onChange={handleChange}
+            autoComplete="off"
+          />
+          <input
+            type="password"
+            className="input"
+            name="password"
+            placeholder="Password"
+            value={loginFormData.password}
+            onChange={handleChange}
+            autoComplete="off"
+          />
           <p className="page-link">
             <span className="page-link-label">Forgot Password?</span>
           </p>
-          <button className="form-btn" type='submit'>Log in</button>
+          <button className="form-btn" type="submit">
+            Log in
+          </button>
         </form>
         <p className="sign-up-label">
-          Don't have an account? <Link to='/signup'><span className="sign-up-link">Sign up</span></Link>
+          Don't have an account?{" "}
+          <Link to="/signup">
+            <span className="sign-up-link">Sign up</span>
+          </Link>
         </p>
         <div className="buttons-container">
           <div className="apple-login-button">
@@ -74,4 +132,4 @@ const Signin = () => {
   );
 };
 
-export default Signin
+export default Signin;
