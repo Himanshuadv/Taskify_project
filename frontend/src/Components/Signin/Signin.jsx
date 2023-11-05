@@ -22,7 +22,6 @@ const Signin = () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
         navigate("/home");
       } else {
         const data = await response.json();

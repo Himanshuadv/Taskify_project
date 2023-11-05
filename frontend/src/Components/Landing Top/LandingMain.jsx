@@ -20,7 +20,7 @@ const LandingMain = () => {
           </div>
         </div>
         <div className="land-nav-right">
-          <Link to='/signin'><a>Login</a></Link>
+          <Link to='/signin'><a href="/signin">Login</a></Link>
         </div>
       </div>
       <div className="text-img-container">
