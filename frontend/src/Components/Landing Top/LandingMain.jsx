@@ -3,6 +3,7 @@ import "./LandingMain.css";
 import logo from "../Assets/logo.jpeg";
 import logo2 from "../Assets/logo2.jpeg"
 import { Link } from "react-router-dom";
+import { MdTaskAlt } from 'react-icons/md'
 
 const LandingMain = () => {
   return (
@@ -10,6 +11,7 @@ const LandingMain = () => {
       <div className="landing-nav">
         <div className="land-nav-left">
           <div className="logo">
+            < MdTaskAlt size={50}/>
             <h2>Taskify</h2>
           </div>
           <div className="land-nav-left-items">

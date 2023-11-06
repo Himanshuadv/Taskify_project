@@ -13,7 +13,9 @@
 }
 .home-logo {
     display: flex;
+    gap: 15px;
     align-items: center;
+    color: #fff;
 }
 .home-logo img{
     width: 50px;
@@ -46,7 +48,8 @@ font-family: "Playpen Sans", cursive;
     background: rgb(213, 214, 224);
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%);
     border-radius: 5px;
     transition: all 0.3s;
 }
@@ -57,6 +60,9 @@ font-family: "Playpen Sans", cursive;
     display: flex;
     gap: 30px;
     color: white;
+}
+.msg-icon {
+    margin-top: 2px;
 }
 .msg-icon,.user-icon {
     cursor: pointer;
