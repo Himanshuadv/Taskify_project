@@ -4,10 +4,12 @@ const bcrypt = require("bcryptjs")
 const User = require('./models/userModel.js')
 const connectDb = require('./config/db.js')
 const app = express();
+const middleware = require('./middleware')
 
 // Middleware
 app.use(cors({ origin: "http://localhost:3000" })); // Allow requests from the React app running on port 3000
 app.use(express.json()); // Parse JSON data from incoming requests
+app.use(middleware.decodeToken)
 
 connectDb();
 
@@ -61,9 +63,16 @@ app.post("/signin",async function (req,res) {
   }
 });
 
+//for authentication
+app.get("/api/todos", (req, res) => {
+  res.json({
+    message: "hello Welcome"
+  });
+});
+
 
 // Start the server
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

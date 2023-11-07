@@ -5,6 +5,8 @@ import {auth,googleAuthProvider,githubAuthProvider} from "../Firebase Auth/confi
 import {signInWithPopup} from "firebase/auth";
 import {AiOutlineGithub} from 'react-icons/ai'
 
+
+
 const Signin = () => {
   const [googleEmail,setGoogleEmail] = useState('')
   const [gitHubEmail, setGitHubEmail] = useState('')
@@ -15,6 +17,7 @@ const Signin = () => {
       .then((data) => {
         setGoogleEmail(data.user.email);
         localStorage.setItem("googleEmail", data.user.email);
+        console.log((googleEmail));
 
         navigate("/home");
       })
@@ -28,7 +31,7 @@ const Signin = () => {
       .then((data) => {
         setGitHubEmail(data.user.email);
         localStorage.setItem("gitHubEmail", data.user.email);
-
+        console.log(gitHubEmail);
         navigate("/home");
       })
 
@@ -40,7 +43,8 @@ const Signin = () => {
   useEffect(()=>{
     setGoogleEmail(localStorage.getItem('googleEmail'))
     setGitHubEmail(localStorage.getItem('gitHubEmail'))
-  })
+    console.log(googleEmail);
+  },[])
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
@@ -119,10 +123,13 @@ const Signin = () => {
             <span onClick={handleGithubSignIn}>Log in with Github</span>
           </div>
           <div className="google-login-button">
+
+          {/* improved stroke-width to strokeWidth */}
+
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               version="1.1"
               x="0px"
               y="0px"
