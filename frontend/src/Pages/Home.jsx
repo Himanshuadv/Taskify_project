@@ -20,7 +20,7 @@ const Home = () => {
     fetchData(token);
    }
   }, []); // <-- Use [token] in the dependency array
-  
+ 
   const fetchData = async (token) => {
     try {
       const res = await axios.get("http://localhost:8000/api/todos", {

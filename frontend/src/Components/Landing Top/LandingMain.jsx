@@ -1,3 +1,5 @@
+//fill-rule -> fillRule and class to className
+
 import React from "react";
 import "./LandingMain.css";
 import logo from "../Assets/logo.jpeg";
