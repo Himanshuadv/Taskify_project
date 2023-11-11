@@ -46,18 +46,11 @@ const Signin = () => {
       });
   };
 
-<<<<<<< HEAD
-  useEffect(() => {
-    setGoogleEmail(localStorage.getItem("googleEmail"));
-    setGitHubEmail(localStorage.getItem("gitHubEmail"));
-  });
-=======
   useEffect(()=>{
     setGoogleEmail(localStorage.getItem('googleEmail'))
     setGitHubEmail(localStorage.getItem('gitHubEmail'))
     console.log(googleEmail);
   },[])
->>>>>>> origin/dheeraj
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
@@ -154,14 +147,7 @@ const Signin = () => {
             <AiOutlineGithub size={24} />
             <span>Log in with Github</span>
           </div>
-<<<<<<< HEAD
-          <div onClick={handleGoogleSignIn} className="google-login-button">
-=======
           <div className="google-login-button">
-
-          {/* improved stroke-width to strokeWidth */}
-
->>>>>>> origin/dheeraj
             <svg
               stroke="currentColor"
               fill="currentColor"

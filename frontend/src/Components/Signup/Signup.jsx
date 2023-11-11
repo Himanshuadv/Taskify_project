@@ -1,24 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Signup.css";
-<<<<<<< HEAD
 import { Link, useNavigate } from "react-router-dom";
 import {auth,googleAuthProvider,githubAuthProvider} from "../Firebase Auth/config"
 import {signInWithPopup} from "firebase/auth"
 import {AiOutlineGithub} from 'react-icons/ai'
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
-=======
-import {Link, useNavigate } from "react-router-dom";
-import { auth, googleAuthProvider, githubAuthProvider } from "../Firebase Auth/config"
-import { signInWithPopup } from "firebase/auth";
-import { AiOutlineGithub } from 'react-icons/ai'
-
-
-//guess
-
-
-
->>>>>>> origin/dheeraj
 
 const Signup = () => {
   const [googleEmail, setGoogleEmail] = useState('')
