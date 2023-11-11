@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import {auth,googleAuthProvider,githubAuthProvider} from "../Firebase Auth/config"
-import {signInWithPopup} from "firebase/auth";
+import {signInWithPopup} from "firebase/auth"
 import {AiOutlineGithub} from 'react-icons/ai'
+import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Signup = () => {
   const [googleEmail,setGoogleEmail] = useState('')
@@ -52,6 +54,7 @@ const Signup = () => {
     try {
       const response = await fetch("http://localhost:5000/signup", {
         method: "POST",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -78,6 +81,11 @@ const Signup = () => {
     });
   };
 
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
 
     <div className="signup">
@@ -100,14 +108,24 @@ const Signup = () => {
             value={formData.email}
             onChange={handleChange}
           />
-          <input
-            type="password"
-            className="input"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-          />
+          <div className="password-field">
+            <input
+              type={passwordVisible ? "text" : "password"}
+              className="input"
+              name="password"
+              placeholder="Password"
+              value={formData.password}
+              onChange={handleChange}
+              autoComplete="off"
+            />
+            <div className="eye" onClick={togglePasswordVisibility}>
+              {passwordVisible ? (
+                <AiOutlineEye className="eye-icon" />
+              ) : (
+                <AiOutlineEyeInvisible className="close-eye-icon" />
+              )}
+            </div>
+          </div>
           <button className="form-btn" type="submit">
             Create account
           </button>

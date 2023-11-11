@@ -1,0 +1,69 @@
+.note {
+    position: relative;
+    width: 220px;
+    /* background: linear-gradient(100deg,rgb(30, 108, 244),rgb(64, 134, 238)); */
+    border: 1px solid rgb(0, 0, 0,.2);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s;
+}
+.note:hover {
+    transform: translateY(-10px);
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;}
+
+.note h2 {
+    padding: 5px;
+    font-weight: 400;
+    font-size: 18px;
+    /* color: #fff; */
+}
+
+.note-inner-text {
+    overflow-wrap: break-word;
+}
+
+.note p {
+    font-size: 14px;
+    padding: 5px;
+    /* color: #fff; */
+}
+
+.note-handle {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    gap: 34px;
+    font-size: 20px;
+    justify-content: space-between;
+}
+
+.note-tick {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    color: #000;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.note-handle li {
+    color: #000;
+    opacity: 0;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.note-handle li:hover {
+    transform: scale(1.2);
+}
+
+.note:hover .note-handle li,
+.note:hover .note-tick {
+    opacity: 1;
+}

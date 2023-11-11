@@ -39,6 +39,7 @@
     outline: 0 !important;
     box-sizing: border-box;
     padding: 12px 15px;
+    width: 100%;
   }
   
   .form-btn {
@@ -116,4 +117,13 @@
       .google-icon {
     font-size: 18px;
     margin-bottom: 1px;
+  }
+  .password-field {
+    position: relative;
+  }
+  .eye {
+    position: absolute;
+    top: 10px;
+    left: 90%;
+    cursor: pointer;
   }
