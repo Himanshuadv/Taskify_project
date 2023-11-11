@@ -1,3 +1,5 @@
+//fill-rule -> fillRule and class to className
+
 import React from "react";
 import "./LandingMain.css";
 import logo from "../Assets/logo.jpeg";
@@ -16,15 +18,15 @@ const LandingMain = () => {
           </div>
           <div className="land-nav-left-items">
             <ul>
-              <Link to='/signup'><li>Get Started</li></Link>
+            <li><Link to='/signup'>Get Started</Link></li>
               <li>Contact Us</li>
               <li>About Us</li>
             </ul>
           </div>
         </div>
         <div className="land-nav-right">
-          <Link to='/signin'><a href="/signin">Login</a></Link>
-        </div>
+  <Link to='/signin' className="your-link-styles">Login</Link>
+</div>
       </div>
       <div className="text-img-container">
       <div className="logo-img">
@@ -44,10 +46,10 @@ const LandingMain = () => {
             </p>
           </div>
         </div>
-        <Link to='/signup'><button class="button">
+        <Link to='/signup'><button className="button">
   Get Started
-  <svg fill="currentColor" viewBox="0 0 24 24" class="icon">
-    <path clip-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fill-rule="evenodd"></path>
+  <svg fill="currentColor" viewBox="0 0 24 24" className="icon">
+    <path clipRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm4.28 10.28a.75.75 0 000-1.06l-3-3a.75.75 0 10-1.06 1.06l1.72 1.72H8.25a.75.75 0 000 1.5h5.69l-1.72 1.72a.75.75 0 101.06 1.06l3-3z" fillRule="evenodd"></path>
   </svg>
 </button></Link>
       </div>

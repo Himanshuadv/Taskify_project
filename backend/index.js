@@ -6,6 +6,7 @@ const User = require('./Model/UserSchema.js');
 const Task = require('./Model/TaskSchema.js');
 const connectDb = require('./config/db.js');
 const app = express();
+const middleware = require('./middleware')
 
 connectDb();
 
@@ -132,9 +133,16 @@ app.put('/update-task-status', async function (req, res) {
 });
 
 
+//for authentication
+app.get("/api/todos", (req, res) => {
+  res.json({
+    message: "hello Welcome"
+  });
+});
+
 
 // Start the server
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
