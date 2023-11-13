@@ -6,7 +6,9 @@
     background: linear-gradient(100deg,rgb(26, 88, 195),rgb(64, 134, 238));
     padding: 10px 50px;
 }
-
+a {
+    color: #fff;
+}
 .home-nav-left{
     display: flex;
     align-items: center;

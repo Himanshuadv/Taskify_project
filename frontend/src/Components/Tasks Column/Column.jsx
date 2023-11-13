@@ -26,8 +26,8 @@ const Column = () => {
         const active = taskData.tasks.filter((task) => !task.done);
         const completed = taskData.tasks.filter((task) => task.done);
 
-        setActiveTasks(active);
-        setCompletedTasks(completed);
+        setActiveTasks(active.reverse());
+        setCompletedTasks(completed.reverse());
 
         setTasksAdded(taskData.tasks.length > 0);
       } else {

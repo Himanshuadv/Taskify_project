@@ -4,6 +4,8 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const User = require('./Model/UserSchema.js');
 const Task = require('./Model/TaskSchema.js');
+const Daily = require('./Model/DailySchema.js');
+const schedule = require('node-schedule');
 const connectDb = require('./config/db.js');
 const app = express();
 const middleware = require('./middleware')
@@ -105,12 +107,35 @@ app.post('/task', async function (req, res) {
     res.status(500).json({ errorMessage: "Error adding task" });
   }
 });
+app.post('/dailies', async function (req, res) {
+  const currentUserId = req.session.userId; // Retrieve user ID from the session
+  try {
+    const { title } = req.body;
+    const newDaily = new Daily({
+      userid: currentUserId,
+      title: title,
+      note: "This is a daily",
+      done: false
+    });
+    newDaily.save();
+    res.status(200).json({ message: "Daily Task Added Successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ errorMessage: "Error adding Daily Task" });
+  }
+});
 
 app.get('/get-tasks', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
   const taskData = await Task.find({userid: currentUserId,
  });
   res.status(200).json({ tasks: taskData });
+});
+app.get('/get-dailies', async function (req, res) {
+  const currentUserId = req.session.userId; // Retrieve user ID from the session
+  const dailyData = await Daily.find({userid: currentUserId,
+ });
+  res.status(200).json({ dailies: dailyData });
 });
 app.put('/update-task-status', async function (req, res) {
   try {
@@ -131,15 +156,60 @@ app.put('/update-task-status', async function (req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+app.put('/update-daily-status', async function (req, res) {
+  try {
+    const { dailyId } = req.body;
+    const daily = await Daily.findOne({ _id: dailyId });
 
+    if (!daily) {
+      return res.status(404).json({ message: "Daily Task not found" });
+    }
 
-//for authentication
-app.get("/api/todos", (req, res) => {
-  res.json({
-    message: "hello Welcome"
-  });
+    daily.done = true;
+
+    await daily.save();
+
+    res.status(200).json({ message: "Daily Task completed" });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
+// Resets the done field of daily to false when new day starts.
+schedule.scheduleJob('0 0 * * *', async () => {
+  try {
+    // Update all dailies to set 'done' to false
+    await Daily.updateMany({}, { $set: { done: false } });
+    console.log('Dailies reset for a new day.');
+  } catch (error) {
+    console.error('Error resetting dailies:', error);
+  }
+});
+//To delete a daily task
+app.delete("/delete-daily-task", async (req, res) => {
+  try {
+    const { dailyId } = req.body;
+
+    // Use findById for simplicity and conciseness
+    const daily = await Daily.findById(dailyId);
+
+    if (!daily) {
+      return res.status(404).json({ message: "Daily Task not found" });
+    }
+
+    const deletionResult = await Daily.deleteOne({ _id: dailyId });
+
+    if (deletionResult.deletedCount === 1) {
+      res.status(200).json({ message: "Daily Task deleted" });
+    } else {
+      res.status(500).json({ message: "Failed to delete Daily Task" });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // Start the server
 const port = process.env.PORT || 5000;

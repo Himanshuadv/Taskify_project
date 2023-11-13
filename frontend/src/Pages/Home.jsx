@@ -3,6 +3,7 @@ import Footer from '../Components/Footer/Footer'
 import Hero from '../Components/Hero/Hero'
 import Column from '../Components/Tasks Column/Column'
 import './CSS/Home.css'
+import DailiesColumn from "../Components/Dailies Column/DailiesColumn"
 
 const Home = () => {
   return (
@@ -11,7 +12,7 @@ const Home = () => {
       <Hero />
       <div className="tasks-columns">
       <Column />
-      <Column />
+      <DailiesColumn />
       <Column />
       <Column />
       </div>
