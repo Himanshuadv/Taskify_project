@@ -10,11 +10,11 @@ a {
   background-position: center;
 }
 .landing-nav {
+  width: 100%;
   padding: 20px 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
 }
 .logo {
     display: flex;
@@ -56,6 +56,7 @@ a {
     top: 100%;
     left: 50%;
     background-color: rgb(68, 157, 230);
+    border-radius: 10px;
     transition: all 0.3s;
     transform: translateX(-50%);
 }
@@ -84,8 +85,8 @@ a {
     min-width: 600px;
     width: 50%;
     padding: 0 50px;
-    display: flex;
-    margin-top: 30px;
+    display: flex ;
+    margin: 30px;
     flex-direction: column;
     align-items: center;
     gap: 20px;
@@ -232,8 +233,10 @@ a {
         font-size: 15vw;
     }
     .text-img-container {
-        width: 100%;
         padding: 10px 20px;
+    }
+    .land-nav-right a {
+        padding: 10px;
     }
     .text-container {
         width: 100%;

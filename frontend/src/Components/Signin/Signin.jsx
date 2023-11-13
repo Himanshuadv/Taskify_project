@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import {auth,googleAuthProvider,githubAuthProvider} from "../Firebase Auth/config"
 import {signInWithPopup} from "firebase/auth";
 import {AiOutlineGithub} from 'react-icons/ai'
+import {AiOutlineEye} from 'react-icons/ai'
+import {AiOutlineEyeInvisible} from 'react-icons/ai'
 
 const Signin = () => {
   const [googleEmail,setGoogleEmail] = useState('')
@@ -52,6 +54,7 @@ const Signin = () => {
     try {
       const response = await fetch("http://localhost:5000/signin", {
         method: "POST",
+        credentials:"include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -76,7 +79,11 @@ const Signin = () => {
       [name]: value,
     });
   };
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+  
   return (
     <div className="signin">
       <div className="form-container">
@@ -91,15 +98,24 @@ const Signin = () => {
             onChange={handleChange}
             autoComplete="off"
           />
-          <input
-            type="password"
-            className="input"
-            name="password"
-            placeholder="Password"
-            value={loginFormData.password}
-            onChange={handleChange}
-            autoComplete="off"
-          />
+          <div className="password-field">
+      <input
+        type={passwordVisible ? 'text' : 'password'}
+        className="input"
+        name="password"
+        placeholder="Password"
+        value={loginFormData.password}
+        onChange={handleChange}
+        autoComplete="off"
+      />
+      <div className="eye" onClick={togglePasswordVisibility}>
+        {passwordVisible ? (
+          <AiOutlineEye className="eye-icon" />
+        ) : (
+          <AiOutlineEyeInvisible className="close-eye-icon" />
+        )}
+      </div>
+    </div>
           <p className="page-link">
             <span className="page-link-label">Forgot Password?</span>
           </p>
@@ -114,11 +130,11 @@ const Signin = () => {
           </Link>
         </p>
         <div className="buttons-container">
-          <div className="apple-login-button">
+          <div onClick={handleGithubSignIn} className="apple-login-button">
             <AiOutlineGithub size={24}/>
-            <span onClick={handleGithubSignIn}>Log in with Github</span>
+            <span>Log in with Github</span>
           </div>
-          <div className="google-login-button">
+          <div onClick={handleGoogleSignIn} className="google-login-button">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -149,7 +165,7 @@ const Signin = () => {
                 d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571 c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
               />
             </svg>
-            <span onClick={handleGoogleSignIn}>Log in with Google</span>
+            <span>Log in with Google</span>
           </div>
         </div>
       </div>
