@@ -6,6 +6,9 @@
     background: linear-gradient(100deg,rgb(26, 88, 195),rgb(64, 134, 238));
     padding: 10px 50px;
 }
+a {
+    color: #fff;
+}
 .home-nav-left{
     display: flex;
     align-items: center;
@@ -34,6 +37,9 @@ font-family: "Playpen Sans", cursive;
     list-style: none;
     gap: 50px;
 }
+.home-nav-left-items a {
+    color: #fff;
+}
 .home-nav-left-items ul li{
     color: #fff;
     font-weight: 600;
@@ -55,20 +61,31 @@ font-family: "Playpen Sans", cursive;
 }
 .home-nav-left-items ul li.clicked::after {
     width: 100%;
-  }
+}
 .home-nav-right {
     display: flex;
     gap: 30px;
-    color: white;
+    color: rgb(232, 229, 229);
 }
 .msg-icon {
     margin-top: 2px;
-}
-.msg-icon,.user-icon {
-    cursor: pointer;
-    position: relative;
+    transition: all 0.3s;
 }
 
+.msg-icon,.user-icon,.logout-icon {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s;
+}
+.msg-icon:hover {
+    color: #fff;
+}
+.user-icon:hover {
+    color: #fff;
+}
+.logout-icon:hover {
+    color: #fff;
+}
 .msg-icon:hover .msg-icon-tooltip {
     display: block;
 }
@@ -92,4 +109,26 @@ font-family: "Playpen Sans", cursive;
     padding: 5px;
     background-color: rgb(104, 101, 101);
     border-radius: 3px;
+}
+.logout-icon:hover .logout-icon-tooltip {
+    display: block;
+}
+.logout-icon-tooltip {
+    display: none;
+    position: absolute;
+    top: 130%;
+    left: -8px;
+    padding: 5px;
+    background-color: rgb(104, 101, 101);
+    border-radius: 3px;
+}
+.msg-count {
+    position: absolute;
+    text-align: center;
+    top: -10px;
+    left: 90%;
+    background-color: red;
+    color: #fff;
+    border-radius: 50%;
+    width: 20px;
 }
