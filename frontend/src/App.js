@@ -5,7 +5,9 @@ import SignupPage from './Pages/SignupPage';
 import SigninPage from './Pages/SigninPage';
 import Home from './Pages/Home';
 import Notes from './Pages/Notes';
+import CanvasGenerator from './Pages/CanvasGenerator';
 import { AppProvider } from './Components/context';
+import Canvas from './Pages/Canvas';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
             <Route path="/signin" element={<SigninPage />} />
             <Route path="/home" element={<Home />} />
             <Route path="/notes" element={<Notes />} />
+            <Route path="/canvas-generator" element={<CanvasGenerator />} />
+            <Route path="/canvas" element={<Canvas />} />
           </Routes>
         </BrowserRouter>
       </AppProvider>
