@@ -20,7 +20,7 @@ const LandingMain = () => {
             <ul>
             <li><Link to='/signup'>Get Started</Link></li>
               <li>Contact Us</li>
-              <li>About Us</li>
+              <Link to='/aboutus'><li>About Us</li></Link>
             </ul>
           </div>
         </div>

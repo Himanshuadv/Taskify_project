@@ -1,0 +1,96 @@
+/* About Us Container */
+.about-us-container {
+    /* margin: 20px; */
+    background-color: #0d395b;
+    color: #fff;
+  }
+  
+  /* Header Styles */
+  .about-us-header,
+  .designed-by-header,
+  .features-header,
+  contact-header {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  /* Intro and Description Styles */
+  .about-us-intro,
+  .features-description,
+  contact-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  /* Designer Info Styles */
+  .designer-info {
+    text-align: center;
+  }
+  
+  /* Designer Image Styles */
+  .designer-image img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%; /* Make the image circular */
+    margin-bottom: 10px;
+  }
+  
+  /* Designer Name Styles */
+  .designer-name {
+    font-size: 16px;
+  }
+  
+  /* List Styles */
+  .features-list,
+  contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Feature Item Styles */
+  .feature-item {
+    margin-bottom: 5px;
+  }
+  
+  /* Feature Header Styles */
+  .feature-header {
+    cursor: pointer;
+    color: #fff;
+  }
+  
+  /* Feature Dropdown Styles */
+  .feature-dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  /* Feature Image Styles */
+  .feature-image {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    margin-bottom: 10px;
+  }
+  
+  /* Feature Description Styles */
+  .feature-description {
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  /* Footer Component Styles - Add your specific styles for the Footer component */
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .designer-name,
+    .feature-item {
+      font-size: 14px;
+    }
+  
+    .feature-header {
+      font-size: 16px;
+    }
+  }
+  

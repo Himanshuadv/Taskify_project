@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Line, Stage, Rect, Layer } from "react-konva";
+import CanvasCard from "../CanvasCard/CanvasCard";
+// import { Line, Stage, Rect, Layer } from "react-konva";
 import { CgNotes } from "react-icons/cg";
 // import { BiBellPlus } from "react-icons/bi";
 // import { IoColorPaletteOutline } from "react-icons/io5";
@@ -60,28 +61,13 @@ function CanvasGenerator(props) {
     console.log(e.lines);
 
     const lines = e.lines;
+    const title = e.title;
 
     return (
       <div 
       className={"canvas-show-canvas-page"}
       >
-        <div className="canvas-show-canvas-page-title"></div>
-        <Stage width={400} height={300}>
-          <Layer>
-            <Rect width={400} height={300} fill={"#FFFFDD"} />
-            {lines.map((line, i) => (
-              <Line
-                key={i}
-                points={line.points.map((point) => point / 4)}
-                stroke={line.color}
-                strokeWidth={line.drawer}
-                opacity={line.opacity}
-                tension={0.5}
-                lineCap="round"
-              />
-            ))}
-          </Layer>
-        </Stage>
+        <CanvasCard lines={lines} title={title} />
       </div>
     );
   };

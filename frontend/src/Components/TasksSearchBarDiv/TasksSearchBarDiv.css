@@ -1,0 +1,186 @@
+.add-tasks-tags-div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+    padding: 15px;
+}
+.tags-dropdown-btn-div{
+    position: relative;
+}
+.tags-dropdown-btn {
+    display: flex;
+    width: 100px;
+    padding: 4px;
+    gap: 3px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    cursor: pointer;
+    justify-content: space-between;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+.tags-dropdown-btn span {
+    font-size: 14px;
+    font-weight: 500;
+}
+.tags-dropdown-btn svg {
+    width: 16px;
+    height: 16px;
+    color: #4E4A57;
+    fill: currentColor;
+}
+.tags-dropdown-btn span {
+    color: #4E4A57;
+    font-size: 14px;
+}
+.tags-dropdown-btn:hover {
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+
+.tags-dropdown-btn:active {
+    border: 1px solid rgb(26, 88, 195);
+}
+.add-task-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    padding: 7px 10px;
+    border-radius: 3px;
+    background: rgb(26, 88, 195);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.add-task-btn span {
+    font-size: 14px;
+    font-weight: 500;
+}
+.add-task-btn:active {
+    background: rgb(62, 121, 222);
+}
+.search-bar input{
+    color: #4E4A57;
+    width: 20vw;
+    height: 30px;
+    outline: 0;
+    border: 0;
+    padding: 4px 10px;
+    border: 1px solid #a7a5a5;
+    border-radius: 3px;
+}
+.search-bar input:focus {
+    border: 1px solid rgb(26, 88, 195);
+}
+.add-task-list {
+    position: absolute;
+    top: 110%;
+    left: -50px;
+    background-color: #fff;
+    z-index: 99;
+    width: 150px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.add-task-list ul li {
+    list-style: none;
+}
+.add-task-list ul li div {
+    color: #454447;
+    display: flex;
+    gap: 10px;
+    padding: 5px 15px;
+}
+.add-task-list ul li:hover {
+    background-color: rgb(234, 238, 250);
+}
+.add-task-list ul li div:hover{
+    color: rgb(26, 88, 195);
+}
+.add-task-list ul li div:hover svg{
+    color: rgb(26, 88, 195);
+}
+.add-task-list ul li svg {
+    color: #454447;
+    fill: currentColor;
+}
+.add-task-btn-habit-icon{
+    width: 30px;
+    height: 20px;
+}
+.add-task-btn-daily-icon {
+    width: 24px;
+    height: 20px;
+}
+.add-task-btn-todo-icon {
+    width: 20px;
+    height: 20px;
+}
+.tags-dropdown {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    display: flex;
+    flex-direction: column;
+    z-index: 99;
+    background-color: #fff;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 30px;
+    border-radius: 3px;
+    cursor:auto;
+}
+.tags-dropdown-list ul {
+    height: 200px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+.tags-dropdown ul li {
+    list-style: none;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.tags-dropdown-heading {
+    color: #454447;
+}
+.tags-dropdown-edit {
+    font-size: 12px;
+    font-weight: 400;
+    color: rgb(26, 88, 195);
+    display: inline;
+    cursor: pointer;
+}
+.tags-dropdown-edit:hover {
+    text-decoration: underline;
+}
+.tags-dropdown-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+.clear-filter-btn {
+    color: #f74e52 !important;
+    cursor: pointer;
+}
+.clear-filter-btn:hover {
+    text-decoration: underline;
+}
+.cancel-dropdown-btn {
+    color: #8e8d8d !important;
+    cursor: pointer;
+}
+.cancel-dropdown-btn:hover {
+    text-decoration: underline;
+}

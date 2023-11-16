@@ -1,0 +1,155 @@
+.task {
+    width: 100%;
+    margin-bottom: 2px;
+    border-radius: 5px;
+    background: #ffffff;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    border: 1px solid transparent;
+    overflow: hidden;
+}
+.task:hover {
+    border: 1px solid rgb(153, 153, 245);
+}
+.task .tick:hover svg{
+    display: inline;
+}
+.task-title p{
+    font-size: 16px;
+    color: #34313A;
+}
+.task-notes p {
+    font-size: 14px;
+    color: #686274;
+}
+.task-tick {
+    width: 40px;
+    background: #FFBE5D;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tick {
+    width: 28px;
+    height: 28px;
+    background: #FFFFFF80;
+    border-radius: 2px;
+    text-align: center;
+}
+.tick svg {
+    width: 16px;
+    height: 16px;
+    color: #34313a;
+    fill: currentColor;
+    margin-top: 5px;
+    display: none;
+}
+.tick:hover {
+    background: #f9f6f6eb;
+}
+.task-clickable-area {
+    width: 100%;
+    padding: 7px;
+    overflow-wrap: break-word;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.due-date-and-tags {
+    display: flex;
+    justify-content: space-between;
+}
+.due-date {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+.due-date svg {
+    width: 14px;
+    height: 14px;
+    color: #686274;
+    fill: currentColor;
+}
+.due-date p {
+    color: #686274;
+    font-size: 12px;
+}
+.tags svg {
+    width: 14px;
+    height: 14px;
+    color: #686274;
+    fill: currentColor;
+}
+.grab {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 10px;
+    width: 100%;
+    cursor: grab;
+}
+.completed .task-tick{
+    background: #878190;
+}
+.completed .p {
+    color: #34313A;
+}
+.completed .tick svg {
+    display: inline;
+}
+
+/* Add this below your existing Task.css */
+
+.checklist-toggle {
+    color: #686274;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  
+  .checklist {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .checklist li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .checklist label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+  }
+  
+  .checklist input {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #686274;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .checklist input:checked {
+    background-color: #4caf50;
+    border: 1px solid #4caf50;
+  }
+  
+  .checklist span {
+    font-size: 14px;
+    color: #686274;
+    text-decoration: none;
+  }
+  
+  .checklist span.checked {
+    text-decoration: line-through;
+    color: #4caf50;
+  }
+  

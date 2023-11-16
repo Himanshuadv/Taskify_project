@@ -1,0 +1,177 @@
+.note {
+    position: relative;
+    width: 220px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 10px;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    transition: all 0.5s;
+}
+
+.note:hover{
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.note h2 {
+    padding: 5px;
+    font-weight: 400;
+    font-size: 18px;
+    color: #000;
+}
+
+.note-inner-text {
+    overflow-wrap: break-word;
+}
+
+.note p {
+    font-size: 14px;
+    padding: 5px;
+    color: #000;
+}
+
+.note-handle {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    /* gap: 34px; */
+    font-size: 20px;
+    justify-content: space-between;
+}
+
+.note-tick {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    color: #000;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.note-handle li {
+    color: #000;
+    opacity: 0;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.note:hover .note-handle li,
+.note:hover .note-tick {
+    opacity: 1;
+}
+
+.add-note-bar-icons-color-chooser ul {
+    display: flex;
+    list-style: none;
+    position: absolute;
+    height: fit-content;
+    width: fit-content;
+    background-color: #f6fff8;
+    justify-content: center;
+    gap: 5px;
+    border: 1.4px solid black;
+    border-radius: 10px;
+}
+
+.add-note-bar-icons-color-chooser-white {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    background-color: white;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-note-bar-icons-color-chooser-white:hover {
+    /* border-color: #a142f4; */
+    border-color: black;
+    transform: scale(1.2);
+}
+
+.add-note-bar-icons-color-chooser-red {
+    border: 2px solid white;
+    background-color: #faafa8;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-note-bar-icons-color-chooser-red:hover {
+    /* border-color: #a142f4; */
+    border-color: black;
+    transform: scale(1.2);
+}
+
+.add-note-bar-icons-color-chooser-yellow {
+    border: 2px solid white;
+    background-color: #fff8b8;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-note-bar-icons-color-chooser-yellow:hover {
+    /* border-color: #a142f4; */
+    border-color: black;
+    transform: scale(1.2);
+}
+
+.add-note-bar-icons-color-chooser-blue {
+    border: 2px solid white;
+    background-color: #aeccdc;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-note-bar-icons-color-chooser-blue:hover {
+    /* border-color: #a142f4; */
+    border-color: black;
+    transform: scale(1.2);
+}
+
+.add-note-bar-icons-color-chooser-cyan {
+    border: 2px solid white;
+    background-color: #efeff1;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-note-bar-icons-color-chooser-cyan:hover {
+    /* border-color: #a142f4; */
+    border-color: black;
+    transform: scale(1.2);
+}
+
+.add-note-bar-icons-color-chooser-custom {
+    border: 2px solid white;
+    background-color: #b4ddd3;
+    height: 30px;
+    width: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.add-note-bar-icons-color-chooser-custom:hover {
+    /* border-color: #a142f4; */
+    border-color: black;
+    transform: scale(1.2);
+}
