@@ -145,7 +145,6 @@ app.get('/get-tasks', async function (req, res) {
  });
   res.status(200).json({ tasks: taskData });
 });
-
 app.put('/update-task-status', async function (req, res) {
   try {
     const { taskId } = req.body;
@@ -165,7 +164,6 @@ app.put('/update-task-status', async function (req, res) {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
 
 // api code to save notes to the database
 app.post('/note',async function(req,res){

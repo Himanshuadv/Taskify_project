@@ -6,7 +6,13 @@
     background: linear-gradient(100deg,rgb(26, 88, 195),rgb(64, 134, 238));
     padding: 10px 50px;
 }
+<<<<<<< HEAD
 
+=======
+a {
+    color: #fff;
+}
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
 .home-nav-left{
     display: flex;
     align-items: center;

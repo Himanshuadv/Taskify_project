@@ -22,7 +22,11 @@ function AddNoteBar(props)
           });
           if (response.ok) {
           const noteData = await response.json();
+<<<<<<< HEAD
           setNotes(noteData.notes.reverse());
+=======
+          setNotes(noteData.notes);
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
           if(noteData.notes.length>0){setNote(true);}
           console.log(noteData.notes)
           // Split tasks into active and completed
@@ -185,7 +189,11 @@ function AddNoteBar(props)
     </div>
     <div className="notes-display">
     {notes.map((note,index)=>{
+<<<<<<< HEAD
       return <Card key={note._id} updateNotes={fetchNotes} id={note._id} title={note.title} note={note.note} color={note.color} />
+=======
+      return <Card key={index} id={note._id} title={note.title} note={note.note} color={note.color} />
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
     })}
     <div className="notes-initial-bg" style={{ display: isNote ? 'none' : 'flex' }}>
         <CgNotes size={80} color='rgba(0,0,0,.2)'/>
@@ -199,4 +207,8 @@ function AddNoteBar(props)
   )
 }
 
+<<<<<<< HEAD
 export default AddNoteBar;
+=======
+export default AddNoteBar;
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25

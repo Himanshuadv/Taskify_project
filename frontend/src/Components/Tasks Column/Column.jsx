@@ -2,16 +2,24 @@ import React, { useState, useEffect } from "react";
 import "./Column.css";
 import Task from "../Task/Task";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+<<<<<<< HEAD
 import { useTaskContext } from "../TaskContext"; // Import the context hook
 
 const Column = () => {
   // Replace local state with context state
   const { activeTasks, completedTasks, fetchTasks, setActiveTasks, setCompletedTasks } = useTaskContext();
+=======
+
+const Column = () => {
+  const [activeTasks, setActiveTasks] = useState([]);
+  const [completedTasks, setCompletedTasks] = useState([]);
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
   const [newTaskText, setNewTaskText] = useState("");
   const [clicked, setClicked] = useState("active");
   const [tasksAdded, setTasksAdded] = useState(false);
   const textareaRef = React.createRef();
 
+<<<<<<< HEAD
   useEffect(() => {
     fetchTasks();
   }, [fetchTasks]); // Update the effect dependency to include fetchTasks
@@ -29,6 +37,47 @@ const Column = () => {
     } else {
       setCompletedTasks(reorderedTasks);
     }
+=======
+  const fetchTasks = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/get-tasks", {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        const taskData = await response.json();
+        // Split tasks into active and completed
+        const active = taskData.tasks.filter((task) => !task.done);
+        const completed = taskData.tasks.filter((task) => task.done);
+
+        setActiveTasks(active.reverse());
+        setCompletedTasks(completed.reverse());
+
+        setTasksAdded(taskData.tasks.length > 0);
+      } else {
+        console.error("Failed to fetch tasks");
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+  
+    const reorderedTasks = Array.from(activeTasks); // Create a copy of the tasks array
+    const [removed] = reorderedTasks.splice(result.source.index, 1);
+    reorderedTasks.splice(result.destination.index, 0, removed);
+  
+    setActiveTasks(reorderedTasks); // Update the state with the reordered tasks
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
   };
 
   const handleItemClick = (item) => {
@@ -124,6 +173,7 @@ const Column = () => {
                               {...provided.dragHandleProps}
                             >
                               <Task
+<<<<<<< HEAD
                                 title={task.title}
                                 taskId={task._id}
                                 status={clicked}
@@ -134,6 +184,12 @@ const Column = () => {
                                 tags={task.tags}
                                 done={task.done}
                                 endDate={task.endDate}
+=======
+                                text={task.title}
+                                taskId={task._id}
+                                status={clicked}
+                                updateTasks={fetchTasks}
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
                               />
                             </div>
                           )}
@@ -141,6 +197,7 @@ const Column = () => {
                       ))
                     : completedTasks.map((task, index) => (
                             <div>
+<<<<<<< HEAD
                             <Task
                                 title={task.title}
                                 taskId={task._id}
@@ -152,6 +209,13 @@ const Column = () => {
                                 tags={task.tags}
                                 done={task.done}
                                 endDate={task.endDate}
+=======
+                              <Task
+                                text={task.title}
+                                taskId={task._id}
+                                status={clicked}
+                                updateTasks={fetchTasks}
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
                               />
                             </div>
                       ))}

@@ -1,15 +1,29 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./Signin.css";
 import { Link, useNavigate } from "react-router-dom";
+<<<<<<< HEAD
 import {auth,googleAuthProvider,githubAuthProvider} from "../Firebase Auth/config"
 import {signInWithPopup} from "firebase/auth";
 import {AiOutlineGithub} from 'react-icons/ai'
 import {AiOutlineEye} from 'react-icons/ai'
 import {AiOutlineEyeInvisible} from 'react-icons/ai'
+=======
+import {
+  auth,
+  googleAuthProvider,
+  githubAuthProvider,
+} from "../Firebase Auth/config";
+import { signInWithPopup } from "firebase/auth";
+import { AiOutlineGithub } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+
+
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
 
 const Signin = () => {
-  const [googleEmail,setGoogleEmail] = useState('')
-  const [gitHubEmail, setGitHubEmail] = useState('')
+  const [googleEmail, setGoogleEmail] = useState("");
+  const [gitHubEmail, setGitHubEmail] = useState("");
   const navigate = useNavigate();
 
   const handleGoogleSignIn = () => {
@@ -17,6 +31,7 @@ const Signin = () => {
       .then((data) => {
         setGoogleEmail(data.user.email);
         localStorage.setItem("googleEmail", data.user.email);
+        console.log((googleEmail));
 
         navigate("/home");
       })
@@ -30,7 +45,7 @@ const Signin = () => {
       .then((data) => {
         setGitHubEmail(data.user.email);
         localStorage.setItem("gitHubEmail", data.user.email);
-
+        console.log(gitHubEmail);
         navigate("/home");
       })
 
@@ -42,7 +57,8 @@ const Signin = () => {
   useEffect(()=>{
     setGoogleEmail(localStorage.getItem('googleEmail'))
     setGitHubEmail(localStorage.getItem('gitHubEmail'))
-  })
+    console.log(googleEmail);
+  },[])
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
@@ -54,7 +70,11 @@ const Signin = () => {
     try {
       const response = await fetch("http://localhost:5000/signin", {
         method: "POST",
+<<<<<<< HEAD
         credentials:"include",
+=======
+        credentials: "include",
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
         headers: {
           "Content-Type": "application/json",
         },
@@ -83,12 +103,21 @@ const Signin = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
   return (
     <div className="signin">
       <div className="form-container">
         <p className="title">Welcome back</p>
-        <form onSubmit={handleSubmit} className="form" action="/signin" method="post">
+        <form
+          onSubmit={handleSubmit}
+          className="form"
+          action="/signin"
+          method="post"
+        >
           <input
             type="email"
             className="input"
@@ -99,6 +128,7 @@ const Signin = () => {
             autoComplete="off"
           />
           <div className="password-field">
+<<<<<<< HEAD
       <input
         type={passwordVisible ? 'text' : 'password'}
         className="input"
@@ -116,6 +146,25 @@ const Signin = () => {
         )}
       </div>
     </div>
+=======
+            <input
+              type={passwordVisible ? "text" : "password"}
+              className="input"
+              name="password"
+              placeholder="Password"
+              value={loginFormData.password}
+              onChange={handleChange}
+              autoComplete="off"
+            />
+            <div className="eye" onClick={togglePasswordVisibility}>
+              {passwordVisible ? (
+                <AiOutlineEye className="eye-icon" size={20} />
+              ) : (
+                <AiOutlineEyeInvisible className="close-eye-icon" size={20} />
+              )}
+            </div>
+          </div>
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
           <p className="page-link">
             <span className="page-link-label">Forgot Password?</span>
           </p>
@@ -131,14 +180,18 @@ const Signin = () => {
         </p>
         <div className="buttons-container">
           <div onClick={handleGithubSignIn} className="apple-login-button">
+<<<<<<< HEAD
             <AiOutlineGithub size={24}/>
+=======
+            <AiOutlineGithub size={24} />
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
             <span>Log in with Github</span>
           </div>
           <div onClick={handleGoogleSignIn} className="google-login-button">
             <svg
               stroke="currentColor"
               fill="currentColor"
-              stroke-width="0"
+              strokeWidth="0"
               version="1.1"
               x="0px"
               y="0px"

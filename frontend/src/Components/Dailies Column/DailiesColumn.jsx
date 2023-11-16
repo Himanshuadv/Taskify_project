@@ -206,4 +206,8 @@ const DailiesColumn = () => {
   );
 };
 
+<<<<<<< HEAD
 export default DailiesColumn;
+=======
+export default DailiesColumn;
+>>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
