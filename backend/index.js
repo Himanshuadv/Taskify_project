@@ -7,7 +7,10 @@ const Task = require('./Model/TaskSchema.js');
 const Canvas = require('./Model/CanvasSchema.js');
 const connectDb = require('./config/db.js');
 const Note = require('./Model/NoteSchema.js');
+const Daily = require('./Model/DailySchema.js');
+const schedule = require('node-schedule');
 const app = express();
+const middleware = require('./middleware')
 
 connectDb();
 
@@ -107,6 +110,35 @@ app.post('/task', async function (req, res) {
   }
 });
 
+app.post('/task-added-through-editor', async function (req, res) {
+  const currentUserId = req.session.userId; // Retrieve user ID from the session
+
+  try {
+    const { title, note, checklist, dueDate, tags } = req.body;
+
+    // Split tags at spaces or commas and trim each tag
+    const tagsArray = tags.split(/[ ,]+/).map(tag => tag.trim());
+
+    const newTask = new Task({
+      userid: currentUserId,
+      title: title,
+      note: note,
+      checklist: checklist,
+      done: false,
+      endDate: dueDate,
+      tags: tagsArray,
+    });
+
+    await newTask.save();
+
+    res.status(200).json({ message: "Task Added Successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ errorMessage: "Error adding task" });
+  }
+});
+
+
 app.get('/get-tasks', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
   const taskData = await Task.find({userid: currentUserId,
@@ -181,13 +213,13 @@ app.put('/update-note-color', async function(req,res){
 app.delete('/delete-note', async function(req,res){
   try {
     const { id } = req.body;
-    const note = await Note.deleteOne({ _id: id });
+    const deleteNoteCounter = await Note.deleteOne({ _id: id });
 
-    if (note!=1) {
+    if (deleteNoteCounter.deletedCount!=1) {
       return res.status(404).json({ message: "Note not found" });
     }
     else{
-    res.status(200).json({ message: "Note Deleted" });
+      res.status(200).json({ message: "Note Deleted" });
     }
   } catch (error) {
     console.error("Error:", error);
@@ -252,6 +284,89 @@ app.get('/get-canvases', async function (req, res) {
   res.status(200).json({ canvases: canvasData });
 });
 
+//api code to add daily to db
+app.post('/dailies', async function (req, res) {
+  const currentUserId = req.session.userId; // Retrieve user ID from the session
+  try {
+    const { title } = req.body;
+    const newDaily = new Daily({
+      userid: currentUserId,
+      title: title,
+      note: "This is a daily",
+      done: false
+    });
+    newDaily.save();
+    res.status(200).json({ message: "Daily Task Added Successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ errorMessage: "Error adding Daily Task" });
+  }
+});
+
+// api code to fetch daily
+app.get('/get-dailies', async function (req, res) {
+  const currentUserId = req.session.userId; // Retrieve user ID from the session
+  const dailyData = await Daily.find({userid: currentUserId,
+ });
+  res.status(200).json({ dailies: dailyData });
+});
+
+// api code to complete a daily
+app.put('/update-daily-status', async function (req, res) {
+  try {
+    const { dailyId } = req.body;
+    const daily = await Daily.findOne({ _id: dailyId });
+
+    if (!daily) {
+      return res.status(404).json({ message: "Daily Task not found" });
+    }
+
+    daily.done = true;
+
+    await daily.save();
+
+    res.status(200).json({ message: "Daily Task completed" });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// Resets the done field of daily to false when new day starts.
+schedule.scheduleJob('0 0 * * *', async () => {
+  try {
+    // Update all dailies to set 'done' to false
+    await Daily.updateMany({}, { $set: { done: false } });
+    console.log('Dailies reset for a new day.');
+  } catch (error) {
+    console.error('Error resetting dailies:', error);
+  }
+});
+
+//To delete a daily task
+app.delete("/delete-daily-task", async (req, res) => {
+  try {
+    const { dailyId } = req.body;
+
+    // Use findById for simplicity and conciseness
+    const daily = await Daily.findById(dailyId);
+
+    if (!daily) {
+      return res.status(404).json({ message: "Daily Task not found" });
+    }
+
+    const deletionResult = await Daily.deleteOne({ _id: dailyId });
+
+    if (deletionResult.deletedCount === 1) {
+      res.status(200).json({ message: "Daily Task deleted" });
+    } else {
+      res.status(500).json({ message: "Failed to delete Daily Task" });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 // Start the server
 const port = process.env.PORT || 5000;

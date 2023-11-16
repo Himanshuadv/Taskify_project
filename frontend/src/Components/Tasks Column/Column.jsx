@@ -2,54 +2,33 @@ import React, { useState, useEffect } from "react";
 import "./Column.css";
 import Task from "../Task/Task";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useTaskContext } from "../TaskContext"; // Import the context hook
 
 const Column = () => {
-  const [activeTasks, setActiveTasks] = useState([]);
-  const [completedTasks, setCompletedTasks] = useState([]);
+  // Replace local state with context state
+  const { activeTasks, completedTasks, fetchTasks, setActiveTasks, setCompletedTasks } = useTaskContext();
   const [newTaskText, setNewTaskText] = useState("");
   const [clicked, setClicked] = useState("active");
   const [tasksAdded, setTasksAdded] = useState(false);
   const textareaRef = React.createRef();
 
-  const fetchTasks = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/get-tasks", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        const taskData = await response.json();
-        // Split tasks into active and completed
-        const active = taskData.tasks.filter((task) => !task.done);
-        const completed = taskData.tasks.filter((task) => task.done);
-
-        setActiveTasks(active);
-        setCompletedTasks(completed);
-
-        setTasksAdded(taskData.tasks.length > 0);
-      } else {
-        console.error("Failed to fetch tasks");
-      }
-    } catch (error) {
-      console.error("Error", error);
-    }
-  };
-
   useEffect(() => {
     fetchTasks();
-  }, []);
+  }, [fetchTasks]); // Update the effect dependency to include fetchTasks
 
   const handleDragEnd = (result) => {
     if (!result.destination) return;
-  
-    const reorderedTasks = Array.from(activeTasks); // Create a copy of the tasks array
+
+    const reorderedTasks = Array.from(activeTasks);
     const [removed] = reorderedTasks.splice(result.source.index, 1);
     reorderedTasks.splice(result.destination.index, 0, removed);
-  
-    setActiveTasks(reorderedTasks); // Update the state with the reordered tasks
+
+    // Update context state with the reordered tasks
+    if (clicked === "active") {
+      setActiveTasks(reorderedTasks);
+    } else {
+      setCompletedTasks(reorderedTasks);
+    }
   };
 
   const handleItemClick = (item) => {
@@ -145,10 +124,16 @@ const Column = () => {
                               {...provided.dragHandleProps}
                             >
                               <Task
-                                text={task.title}
+                                title={task.title}
                                 taskId={task._id}
                                 status={clicked}
                                 updateTasks={fetchTasks}
+                                note={task.note}
+                                priority={task.priority}
+                                checklist={task.checklist}
+                                tags={task.tags}
+                                done={task.done}
+                                endDate={task.endDate}
                               />
                             </div>
                           )}
@@ -156,11 +141,17 @@ const Column = () => {
                       ))
                     : completedTasks.map((task, index) => (
                             <div>
-                              <Task
-                                text={task.title}
+                            <Task
+                                title={task.title}
                                 taskId={task._id}
                                 status={clicked}
                                 updateTasks={fetchTasks}
+                                note={task.note}
+                                priority={task.priority}
+                                checklist={task.checklist}
+                                tags={task.tags}
+                                done={task.done}
+                                endDate={task.endDate}
                               />
                             </div>
                       ))}

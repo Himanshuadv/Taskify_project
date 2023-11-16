@@ -5,6 +5,8 @@ const taskSchema = mongoose.Schema({
     title: { type: String, required: true },
     note: { type: String, required: true },
     priority: { type: String},
+    checklist: {type: Array},
+    tags: {type: Array},
     done: { type: Boolean, required: true},
     endDate: { type: Date}
 }, {

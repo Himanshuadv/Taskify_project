@@ -1,0 +1,75 @@
+/* Carousal Container */
+.carousal-container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    height: 400px;
+    width: 100%;
+    overflow: hidden; /* Ensure images don't overflow */
+  }
+  
+  /* Carousal Image */
+  .carousal-image {
+    border: 8px solid rgba(50, 50, 50, 1);
+    height: inherit;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: transform 0.5s ease; /* Add smooth transition for image change */
+  }
+  
+  /* Carousal Text */
+  .carousal-text {
+    position: absolute;
+    top: 50px;
+    right: 100px;
+    width: fit-content;
+    text-align: center;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .carousal-text-header {
+    margin-bottom: 10px;
+  }
+  
+  .carousal-text-body {
+    margin: 0;
+  }
+  
+  /* Carousal Buttons */
+  .carousal-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+  }
+  
+  .carousal-previous-button,
+  .carousal-next-button {
+    font-size: 10px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  .carousal-previous-button:hover,
+  .carousal-next-button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .carousal-text {
+      font-size: 14px;
+    }
+  
+    .carousal-button {
+      font-size: 14px;
+    }
+  }
+  

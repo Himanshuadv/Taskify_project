@@ -5,13 +5,17 @@ import SignupPage from './Pages/SignupPage';
 import SigninPage from './Pages/SigninPage';
 import Home from './Pages/Home';
 import Notes from './Pages/Notes';
-import Canvas from './Pages/CanvasGenerator';
+import AboutUsPage from './Pages/AboutUsPage';
+import CanvasGenerator from './Pages/CanvasGeneratorPage';
 import { AppProvider } from './Components/context';
-import CanvasCreate from './Pages/Canvas';
+import Canvas from './Pages/CanvasPage';
+import {TaskProvider} from './Components/TaskContext';
+// import IndividualIntervalsExample from './Components/IndividualIntervalExample';
 
 function App() {
   return (
     <div className="App">
+    <TaskProvider>
       <AppProvider>
         <BrowserRouter>
           <Routes>
@@ -20,11 +24,14 @@ function App() {
             <Route path="/signin" element={<SigninPage />} />
             <Route path="/home" element={<Home />} />
             <Route path="/notes" element={<Notes />} />
-            <Route path="/canvas-generator" element={<Canvas />} />
-            <Route path="/canvas" element={<CanvasCreate />} />
+            <Route path="/canvas-generator" element={<CanvasGenerator />} />
+            <Route path="/canvas" element={<Canvas />} />
+            <Route path="/aboutus" element={<AboutUsPage />} />
+            {/* <Route path="/aboutus" element={<IndividualIntervalsExample />} /> */}
           </Routes>
         </BrowserRouter>
       </AppProvider>
+      </TaskProvider>
     </div>
   );
 }

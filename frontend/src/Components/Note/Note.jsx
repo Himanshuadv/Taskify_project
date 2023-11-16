@@ -25,14 +25,15 @@ function Card(props) {
       });
 
       if (response.ok) {
+        props.updateNotes();
         console.log("Note deleted successfully");
       } else {
         console.error("Failed to delete note");
       }
     } catch (error) {
       console.error("Error", error);
-    }
   }
+}
 
   const handleColorClicked = () => {
     if(isColorClicked)
@@ -125,6 +126,9 @@ function Card(props) {
           onClick={handleDeleteClick}
         >
           <MdDelete />
+        </li>
+        <li>
+          <IoMdDoneAll />
         </li>
         <li>
           <IoMdDoneAll />

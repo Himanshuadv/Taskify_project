@@ -1,0 +1,88 @@
+.daily {
+    position: relative;
+    height: 60px;
+    width: 100%;
+    margin-bottom: 2px;
+    border-radius: 5px;
+    background: #ffffff;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    border: 1px solid transparent;
+}
+.daily:hover {
+    border: 1px solid rgb(153, 153, 245);
+}
+.daily .tick:hover svg{
+    display: inline;
+}
+.daily p{
+    font-size: 16px;
+    color: #34313A;
+}
+.daily-tick {
+    width: 40px;
+    height: 60px;
+    background: #24CC8F;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.tick {
+    width: 28px;
+    height: 28px;
+    background: #FFFFFF80;
+    border-radius: 2px;
+    text-align: center;
+}
+.tick svg {
+    width: 16px;
+    height: 16px;
+    color: #34313a;
+    fill: currentColor;
+    margin-top: 5px;
+    display: none;
+}
+.tick:hover {
+    background: #f9f6f6eb;
+}
+.daily-clickable-area {
+    width: 100%;
+    padding: 7px;
+    overflow-wrap: break-word;
+}
+.grab {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 10px;
+    width: 100%;
+    cursor: grab;
+}
+.completed .daily-tick{
+    background: #878190;
+}
+.completed .p {
+    color: #34313A;
+}
+.completed .tick svg {
+    display: inline;
+}
+.delete-icon {
+    position: absolute;
+    bottom: 0;
+    right: 2px;
+    opacity: 0;
+    color: #34313a;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.daily:hover .delete-icon {
+    opacity: 1;
+}
+.delete-icon:active {
+    transform: scale(1.2);
+}
