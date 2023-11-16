@@ -1,10 +1,6 @@
 .note {
     position: relative;
     width: 220px;
-<<<<<<< HEAD
-=======
-    /* background: linear-gradient(100deg,rgb(30, 108, 244),rgb(64, 134, 238)); */
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -13,20 +9,12 @@
     justify-content: space-between;
     padding: 10px;
     border-radius: 5px;
-<<<<<<< HEAD
     box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     transition: all 0.5s;
 }
 
 .note:hover{
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
-=======
-    transition: all 0.3s;
-}
-
-.note:hover{
-    transform: scale(1.2);
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
 }
 
 .note h2 {
@@ -50,11 +38,7 @@
     display: flex;
     flex-direction: row;
     list-style: none;
-<<<<<<< HEAD
     /* gap: 34px; */
-=======
-    gap: 34px;
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
     font-size: 20px;
     justify-content: space-between;
 }
@@ -75,23 +59,12 @@
     transition: all 0.3s ease-in-out;
 }
 
-<<<<<<< HEAD
-=======
-.note-handle li:hover {
-    transform: scale(1.2);
-}
-
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
 .note:hover .note-handle li,
 .note:hover .note-tick {
     opacity: 1;
 }
 
 .add-note-bar-icons-color-chooser ul {
-<<<<<<< HEAD
-=======
-    z-index: 3;
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
     display: flex;
     list-style: none;
     position: absolute;
@@ -201,8 +174,4 @@
     /* border-color: #a142f4; */
     border-color: black;
     transform: scale(1.2);
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25

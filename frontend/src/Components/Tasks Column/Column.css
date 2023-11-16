@@ -119,8 +119,4 @@
 .quick-add:focus + .tip {
     max-height: 100px;
     transition: max-height 0.5s ease-in-out;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25

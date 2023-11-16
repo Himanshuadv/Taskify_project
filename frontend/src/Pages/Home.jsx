@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import Navbar from "../Components/Home Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
@@ -13,14 +12,6 @@ import DailyEditContainer from "../Components/Daily Edit Container/DailyEditCont
 import HabitsEditContainer from "../Components/Habits Edit Container/HabitsEditContainer";
 
 // gsap.registerPlugin(ScrollTrigger);
-=======
-import Navbar from "../Components/Home Navbar/Navbar"
-import Footer from '../Components/Footer/Footer'
-import Hero from '../Components/Hero/Hero'
-import Column from '../Components/Tasks Column/Column'
-import './CSS/Home.css'
-import DailiesColumn from "../Components/Dailies Column/DailiesColumn"
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
 
 const Home = () => {
   const { isAddToDoVisible, isAddDailyVisible, isAddHabitVisible } =
@@ -29,7 +20,6 @@ const Home = () => {
     <div className="home">
       <Navbar />
       <Hero />
-<<<<<<< HEAD
       <div
         className="todo-edit-container"
         style={{ display: isAddToDoVisible ? "block" : "none" }}
@@ -57,13 +47,6 @@ const Home = () => {
         <DailiesColumn />
         <Column />
         <Column />
-=======
-      <div className="tasks-columns">
-      <Column />
-      <DailiesColumn />
-      <Column />
-      <Column />
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
       </div>
       <Footer />
     </div>

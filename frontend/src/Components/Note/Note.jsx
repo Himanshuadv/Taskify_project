@@ -25,23 +25,15 @@ function Card(props) {
       });
 
       if (response.ok) {
-<<<<<<< HEAD
         props.updateNotes();
-=======
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
         console.log("Note deleted successfully");
       } else {
         console.error("Failed to delete note");
       }
     } catch (error) {
       console.error("Error", error);
-<<<<<<< HEAD
   }
 }
-=======
-    }
-  }
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
 
   const handleColorClicked = () => {
     if(isColorClicked)
@@ -138,12 +130,9 @@ function Card(props) {
         <li>
           <IoMdDoneAll />
         </li>
-<<<<<<< HEAD
         <li>
           <IoMdDoneAll />
         </li>
-=======
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
       </div>
     </div>
   );

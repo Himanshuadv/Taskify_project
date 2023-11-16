@@ -1,25 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Signin.css";
 import { Link, useNavigate } from "react-router-dom";
-<<<<<<< HEAD
 import {auth,googleAuthProvider,githubAuthProvider} from "../Firebase Auth/config"
 import {signInWithPopup} from "firebase/auth";
 import {AiOutlineGithub} from 'react-icons/ai'
 import {AiOutlineEye} from 'react-icons/ai'
 import {AiOutlineEyeInvisible} from 'react-icons/ai'
-=======
-import {
-  auth,
-  googleAuthProvider,
-  githubAuthProvider,
-} from "../Firebase Auth/config";
-import { signInWithPopup } from "firebase/auth";
-import { AiOutlineGithub } from "react-icons/ai";
-import { AiOutlineEye } from "react-icons/ai";
-import { AiOutlineEyeInvisible } from "react-icons/ai";
-
-
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
 
 const Signin = () => {
   const [googleEmail, setGoogleEmail] = useState("");
@@ -70,11 +56,7 @@ const Signin = () => {
     try {
       const response = await fetch("http://localhost:5000/signin", {
         method: "POST",
-<<<<<<< HEAD
         credentials:"include",
-=======
-        credentials: "include",
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
         headers: {
           "Content-Type": "application/json",
         },
@@ -103,11 +85,7 @@ const Signin = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-<<<<<<< HEAD
   
-=======
-
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
   return (
     <div className="signin">
       <div className="form-container">
@@ -128,7 +106,6 @@ const Signin = () => {
             autoComplete="off"
           />
           <div className="password-field">
-<<<<<<< HEAD
       <input
         type={passwordVisible ? 'text' : 'password'}
         className="input"
@@ -146,25 +123,6 @@ const Signin = () => {
         )}
       </div>
     </div>
-=======
-            <input
-              type={passwordVisible ? "text" : "password"}
-              className="input"
-              name="password"
-              placeholder="Password"
-              value={loginFormData.password}
-              onChange={handleChange}
-              autoComplete="off"
-            />
-            <div className="eye" onClick={togglePasswordVisibility}>
-              {passwordVisible ? (
-                <AiOutlineEye className="eye-icon" size={20} />
-              ) : (
-                <AiOutlineEyeInvisible className="close-eye-icon" size={20} />
-              )}
-            </div>
-          </div>
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
           <p className="page-link">
             <span className="page-link-label">Forgot Password?</span>
           </p>
@@ -180,11 +138,7 @@ const Signin = () => {
         </p>
         <div className="buttons-container">
           <div onClick={handleGithubSignIn} className="apple-login-button">
-<<<<<<< HEAD
             <AiOutlineGithub size={24}/>
-=======
-            <AiOutlineGithub size={24} />
->>>>>>> 00d214fab0d8c14484db942029a128cbfbcdac25
             <span>Log in with Github</span>
           </div>
           <div onClick={handleGoogleSignIn} className="google-login-button">
