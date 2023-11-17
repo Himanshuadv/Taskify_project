@@ -4,6 +4,7 @@ const AppContext = createContext();
 
 export const AppProvider = ({ children }) => {
   const [clicked, setClicked] = useState('tasks');
+  const [searchTask, setSearchTask] = useState('');
 
   const [isAddToDoVisible, setAddToDoVisibility] = useState(false);
 
@@ -20,7 +21,7 @@ export const AppProvider = ({ children }) => {
   const toggleAddHabitVisibility = () => {
     setAddHabitVisibility((prev) => !prev);
   };
-  const contextValue = {clicked, setClicked,isAddToDoVisible,toggleAddToDoVisibility,isAddDailyVisible,isAddHabitVisible,toggleAddDailyVisibility,toggleAddHabitVisibility};
+  const contextValue = {clicked, setClicked,isAddToDoVisible,toggleAddToDoVisibility,isAddDailyVisible,isAddHabitVisible,toggleAddDailyVisibility,toggleAddHabitVisibility,searchTask,setSearchTask};
   return (
     <AppContext.Provider value={contextValue}>
       {children}

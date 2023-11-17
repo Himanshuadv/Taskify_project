@@ -1,10 +1,12 @@
 // TaskContext.js
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
+// import { useAppContext } from './context';
 
 const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
+  // const contextUsed = useAppContext();
   const [tasks, setTasks] = useState([]);
   const [tasksAdded, setTasksAdded] = useState(false);
 
@@ -30,6 +32,11 @@ export const TaskProvider = ({ children }) => {
         const eactiveTasks = taskData.tasks.filter((task) => !task.done);
         const ecompletedTasks = taskData.tasks.filter((task) => task.done);
 
+        // Filter tasks based on searchTask
+        // const filteredTasks = taskData.tasks.filter((task) =>
+        //   task.title.toLowerCase().includes(contextUsed.searchTask.toLowerCase())
+        // );
+
         setTasks([...eactiveTasks.reverse(), ...ecompletedTasks.reverse()]);
         setTasksAdded(taskData.tasks.length > 0);
 
@@ -47,7 +54,7 @@ export const TaskProvider = ({ children }) => {
   useEffect(() => {
     // Fetch tasks when the component mounts
     fetchTasks();
-  }, []); // Empty dependency array ensures it only runs once on mount
+  }, []); // Include searchTask in the dependency array to refetch when it changes
 
   return (
     <TaskContext.Provider

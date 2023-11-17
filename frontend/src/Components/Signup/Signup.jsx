@@ -1,20 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
-import {auth,googleAuthProvider,githubAuthProvider} from "../Firebase Auth/config"
-import {signInWithPopup} from "firebase/auth"
-import {AiOutlineGithub} from 'react-icons/ai'
+import {
+  auth,
+  googleAuthProvider,
+  githubAuthProvider,
+} from "../Firebase Auth/config";
+import { signInWithPopup } from "firebase/auth";
+import { AiOutlineGithub } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 
 const Signup = () => {
-  const [googleEmail, setGoogleEmail] = useState('')
-  const [gitHubEmail, setGitHubEmail] = useState('')
-  const [tokenId, setTokenId] = useState(null); // this will set the users token Id
+  // const [googleEmail, setGoogleEmail] = useState("");
+  // const [gitHubEmail, setGitHubEmail] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
   // const [token, setToken] = useState('')
   const navigate = useNavigate();
-
-  
 
   const handleGoogleSignUp = async () => {
     try {
@@ -22,45 +28,83 @@ const Signup = () => {
       const user = userCredential.user;
       console.log(user);
 
-      const token = await user.getIdToken();
-      setGoogleEmail(user.email);
-      localStorage.setItem("googleEmail", user.email);
+      // Access email and name
+      formData.email = user.email;
+      formData.name = user.displayName;
+      formData.password =user.uid;
+      const response = await fetch("http://localhost:5000/signup", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (response.ok) {
+        navigate("/home");
+      } else {
+        const data = await response.json();
+        alert(data.errorMessage);
+      }
+      // setGoogleEmail(user.email);
+      // localStorage.setItem("googleEmail", user.email);
 
-      setTokenId(token); // Update the state with the token
+      // setTokenId(token); // Update the state with the token
     } catch (error) {
       console.error("Error signing in with Google:", error);
     }
   };
 
-  useEffect(() => {
-    if (tokenId) {
-      console.log(tokenId);
-      navigate('/home', { state: { token: tokenId } });
-    }
-  }, [tokenId]); // Watch for changes in tokenId state
-  
-  const handleGithubSignUp = () => {
-    signInWithPopup(auth, githubAuthProvider)
-      .then((data) => {
-        setGitHubEmail(data.user.email);
-        localStorage.setItem("gitHubEmail", data.user.email);
-        console.log(gitHubEmail);
-        navigate("/home");
-      })
+  // useEffect(() => {
+  //   if (tokenId) {
+  //     console.log(tokenId);
+  //     navigate("/home", { state: { token: tokenId } });
+  //   }
+  // }, [tokenId]); // Watch for changes in tokenId state
 
-      .catch((error) => {
-        console.error("Error signing in with Github:", error);
+  const handleGithubSignUp = async () => {
+    try {
+      const data = await signInWithPopup(auth, githubAuthProvider);
+     
+      const gitHubId = data.user.uid;
+      const gitHubEmail = gitHubId + '@gmail.com';
+      const userName = data.user.displayName;
+      const password = data.user.uid;
+  
+      // setGitHubEmail(gitHubEmail);
+      localStorage.setItem("gitHubEmail", gitHubEmail);
+  
+      const formData = {
+        email: gitHubEmail,
+        name: userName,
+        password: password, // Replace this with a secure method for generating passwords
+      };
+  
+      const response = await fetch("http://localhost:5000/signup", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
+  
+      if (response.ok) {
+        navigate("/home");
+      } else {
+        const errorData = await response.json();
+        alert(errorData.errorMessage);
+      }
+    } catch (error) {
+      console.error("Error signing in with Github:", error);
+    }
   };
-  useEffect(() => {
-    setGoogleEmail(localStorage.getItem('googleEmail'))
-    setGitHubEmail(localStorage.getItem('gitHubEmail'))
-  },[]);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  
+  // useEffect(() => {
+  //   setGoogleEmail(localStorage.getItem("googleEmail"));
+  //   setGitHubEmail(localStorage.getItem("gitHubEmail"));
+  // }, []);
+  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -86,7 +130,6 @@ const Signup = () => {
     }
   };
 
-
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData({
@@ -101,11 +144,15 @@ const Signup = () => {
   };
 
   return (
-
     <div className="signup">
       <div className="form-container">
         <p className="title">Create account</p>
-        <form onSubmit={handleSubmit} className="form" action="/signup" method="post">
+        <form
+          onSubmit={handleSubmit}
+          className="form"
+          action="/signup"
+          method="post"
+        >
           <input
             type="text"
             className="input"
@@ -199,6 +246,5 @@ const Signup = () => {
     </div>
   );
 };
-
 
 export default Signup;

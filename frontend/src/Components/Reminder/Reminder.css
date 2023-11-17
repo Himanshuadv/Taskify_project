@@ -1,0 +1,80 @@
+.reminder{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: fit-content;
+    padding: 10px;
+    background-color: white;
+    border:1px solid lightgray;
+    border-radius: 10px;
+    z-index: 100;
+    top: 100%;
+    left: 0;
+  }
+  
+  .reminder__header > h1{
+    margin-bottom: 6px;
+  }
+  
+  .reminder__header{
+    display: flex;
+    position: relative;
+  }
+  
+  .reminder-header{
+    font-size: 18px;
+    margin-bottom: 6px;
+    margin-left: 3px;
+    font-weight: 300;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+  }
+  
+  .reminder-cut-icon{
+    position: absolute;
+    right: 10px;
+  }
+  
+  .reminder > input{
+    height: 20px;
+    width: 95%;
+    margin-left: 3px;
+    background-color: white;
+    border:1px solid lightgrey;
+    text-decoration: none;
+  }
+  
+  .spliteOfTimeContainer{
+    width: 100%;
+  }
+  
+  .reminder__splitOfTimeHeader{
+    font-size: 12px;
+  }
+  
+  .reminder_timeInput{
+    font-size: 12px;
+    text-decoration: none;
+  }
+  
+  .reminder__spliteOfTime{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .reminder__spliteOfTime:hover{
+    background-color: lightgray;
+    z-index: 100;
+  }
+  
+  .reminder > button{
+    background-color: #b5afaf;
+    font-size: 17px;
+    border: 1px solid;
+    margin-top: 10px;
+    border-radius: 5px;
+    border-color: #a88734 #9c7e31 #846a29;
+    color: #111;
+  }
