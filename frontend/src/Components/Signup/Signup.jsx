@@ -32,7 +32,11 @@ const Signup = () => {
       formData.email = user.email;
       formData.name = user.displayName;
       formData.password =user.uid;
+<<<<<<< HEAD
       const response = await fetch("http://localhost:5000/signup", {
+=======
+      const response = await fetch("http://localhost:8000/signup", {
+>>>>>>> 990ceee3719f9f1f3266e97c13f41f927648da7f
         method: "POST",
         credentials: "include",
         headers: {
@@ -80,7 +84,11 @@ const Signup = () => {
         password: password, // Replace this with a secure method for generating passwords
       };
   
+<<<<<<< HEAD
       const response = await fetch("http://localhost:5000/signup", {
+=======
+      const response = await fetch("http://localhost:8000/signup", {
+>>>>>>> 990ceee3719f9f1f3266e97c13f41f927648da7f
         method: "POST",
         credentials: "include",
         headers: {
@@ -110,7 +118,7 @@ const Signup = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/signup", {
+      const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -247,4 +255,8 @@ const Signup = () => {
   );
 };
 
+<<<<<<< HEAD
 export default Signup;
+=======
+export default Signup;
+>>>>>>> 990ceee3719f9f1f3266e97c13f41f927648da7f
