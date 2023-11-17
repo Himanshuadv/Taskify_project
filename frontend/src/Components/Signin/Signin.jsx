@@ -1,62 +1,98 @@
 import React, { useEffect, useState } from "react";
 import "./Signin.css";
 import { Link, useNavigate } from "react-router-dom";
-import {auth,googleAuthProvider,githubAuthProvider} from "../Firebase Auth/config"
-import {signInWithPopup} from "firebase/auth";
-import {AiOutlineGithub} from 'react-icons/ai'
-import {AiOutlineEye} from 'react-icons/ai'
-import {AiOutlineEyeInvisible} from 'react-icons/ai'
+import {
+  auth,
+  googleAuthProvider,
+  githubAuthProvider,
+} from "../Firebase Auth/config";
+import { signInWithPopup } from "firebase/auth";
+import { AiOutlineGithub } from "react-icons/ai";
+import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+
+
 
 const Signin = () => {
-  const [googleEmail, setGoogleEmail] = useState("");
-  const [gitHubEmail, setGitHubEmail] = useState("");
   const navigate = useNavigate();
-
-  const handleGoogleSignIn = () => {
-    signInWithPopup(auth, googleAuthProvider)
-      .then((data) => {
-        setGoogleEmail(data.user.email);
-        localStorage.setItem("googleEmail", data.user.email);
-        console.log((googleEmail));
-
-        navigate("/home");
-      })
-
-      .catch((error) => {
-        console.error("Error signing in with Google:", error);
-      });
-  };
-  const handleGithubSignIn = () => {
-    signInWithPopup(auth, githubAuthProvider)
-      .then((data) => {
-        setGitHubEmail(data.user.email);
-        localStorage.setItem("gitHubEmail", data.user.email);
-        console.log(gitHubEmail);
-        navigate("/home");
-      })
-
-      .catch((error) => {
-        console.error("Error signing in with Github:", error);
-      });
-  };
-
-  useEffect(()=>{
-    setGoogleEmail(localStorage.getItem('googleEmail'))
-    setGitHubEmail(localStorage.getItem('gitHubEmail'))
-    console.log(googleEmail);
-  },[])
   const [loginFormData, setLoginFormData] = useState({
     email: "",
     password: "",
   });
 
+  const handleGoogleSignIn = async () => {
+    try {
+      const userCredential = await signInWithPopup(auth, googleAuthProvider);
+      const user = userCredential.user;
+      console.log(user);
+      // Access email and name
+      loginFormData.email = user.email;
+      loginFormData.password =user.uid;
+      const response = await fetch("http://localhost:8000/signin", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginFormData),
+      });
+
+      if (response.ok) {
+        navigate("/home");
+      } else {
+        const data = await response.json();
+        alert(data.errorMessage);
+      }
+      // setGoogleEmail(user.email);
+      // localStorage.setItem("googleEmail", user.email);
+
+      // setTokenId(token); // Update the state with the token
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
+    }
+  };
+
+  const handleGithubSignIn = async () => {
+    try {
+      const data = await signInWithPopup(auth, githubAuthProvider);
+     
+      const gitHubId = data.user.uid;
+      const gitHubEmail = gitHubId + '@gmail.com';
+      const password = data.user.uid;
+  
+      const loginFormData = {
+        email: gitHubEmail,
+        password: password, // Replace this with a secure method for generating passwords
+      };
+  
+      const response = await fetch("http://localhost:8000/signin", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginFormData),
+      });
+
+      if (response.ok) {
+        navigate("/home");
+      } else {
+        const data = await response.json();
+        alert(data.errorMessage);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/signin", {
+      const response = await fetch("http://localhost:8000/signin", {
         method: "POST",
-        credentials:"include",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
@@ -85,7 +121,7 @@ const Signin = () => {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-  
+
   return (
     <div className="signin">
       <div className="form-container">
@@ -106,23 +142,23 @@ const Signin = () => {
             autoComplete="off"
           />
           <div className="password-field">
-      <input
-        type={passwordVisible ? 'text' : 'password'}
-        className="input"
-        name="password"
-        placeholder="Password"
-        value={loginFormData.password}
-        onChange={handleChange}
-        autoComplete="off"
-      />
-      <div className="eye" onClick={togglePasswordVisibility}>
-        {passwordVisible ? (
-          <AiOutlineEye className="eye-icon" />
-        ) : (
-          <AiOutlineEyeInvisible className="close-eye-icon" />
-        )}
-      </div>
-    </div>
+            <input
+              type={passwordVisible ? "text" : "password"}
+              className="input"
+              name="password"
+              placeholder="Password"
+              value={loginFormData.password}
+              onChange={handleChange}
+              autoComplete="off"
+            />
+            <div className="eye" onClick={togglePasswordVisibility}>
+              {passwordVisible ? (
+                <AiOutlineEye className="eye-icon" size={20} />
+              ) : (
+                <AiOutlineEyeInvisible className="close-eye-icon" size={20} />
+              )}
+            </div>
+          </div>
           <p className="page-link">
             <span className="page-link-label">Forgot Password?</span>
           </p>
@@ -138,10 +174,10 @@ const Signin = () => {
         </p>
         <div className="buttons-container">
           <div onClick={handleGithubSignIn} className="apple-login-button">
-            <AiOutlineGithub size={24}/>
+            <AiOutlineGithub size={24} />
             <span>Log in with Github</span>
           </div>
-          <div onClick={handleGoogleSignIn} className="google-login-button">
+          <div className="google-login-button">
             <svg
               stroke="currentColor"
               fill="currentColor"
@@ -172,7 +208,7 @@ const Signin = () => {
                 d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571 c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
               />
             </svg>
-            <span>Log in with Google</span>
+            <span onClick={handleGoogleSignIn}>Log in with Google</span>
           </div>
         </div>
       </div>
