@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import "./Signin.css";
+import React, { useState } from "react";
+import "./Signup.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
   auth,
@@ -11,32 +11,35 @@ import { AiOutlineGithub } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
 
-
-
-const Signin = () => {
-  const navigate = useNavigate();
-  const [loginFormData, setLoginFormData] = useState({
+const Signup = () => {
+  // const [googleEmail, setGoogleEmail] = useState("");
+  // const [gitHubEmail, setGitHubEmail] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
+  // const [token, setToken] = useState('')
+  const navigate = useNavigate();
 
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignUp = async () => {
     try {
       const userCredential = await signInWithPopup(auth, googleAuthProvider);
       const user = userCredential.user;
       console.log(user);
+
       // Access email and name
-      loginFormData.email = user.email;
-      loginFormData.password =user.uid;
-      const response = await fetch("http://localhost:8000/signin", {
+      formData.email = user.email;
+      formData.name = user.displayName;
+      formData.password =user.uid;
+      const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(loginFormData),
+        body: JSON.stringify(formData),
       });
-
       if (response.ok) {
         navigate("/home");
       } else {
@@ -52,51 +55,68 @@ const Signin = () => {
     }
   };
 
-  const handleGithubSignIn = async () => {
+  // useEffect(() => {
+  //   if (tokenId) {
+  //     console.log(tokenId);
+  //     navigate("/home", { state: { token: tokenId } });
+  //   }
+  // }, [tokenId]); // Watch for changes in tokenId state
+
+  const handleGithubSignUp = async () => {
     try {
       const data = await signInWithPopup(auth, githubAuthProvider);
      
       const gitHubId = data.user.uid;
       const gitHubEmail = gitHubId + '@gmail.com';
+      const userName = data.user.displayName;
       const password = data.user.uid;
   
-      const loginFormData = {
+      // setGitHubEmail(gitHubEmail);
+      localStorage.setItem("gitHubEmail", gitHubEmail);
+  
+      const formData = {
         email: gitHubEmail,
+        name: userName,
         password: password, // Replace this with a secure method for generating passwords
       };
   
-      const response = await fetch("http://localhost:8000/signin", {
+      const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(loginFormData),
+        body: JSON.stringify(formData),
       });
-
+  
       if (response.ok) {
         navigate("/home");
       } else {
-        const data = await response.json();
-        alert(data.errorMessage);
+        const errorData = await response.json();
+        alert(errorData.errorMessage);
       }
     } catch (error) {
-      console.error("Error", error);
+      console.error("Error signing in with Github:", error);
     }
   };
+  
+  // useEffect(() => {
+  //   setGoogleEmail(localStorage.getItem("googleEmail"));
+  //   setGitHubEmail(localStorage.getItem("gitHubEmail"));
+  // }, []);
   
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/signin", {
+      const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(loginFormData),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
@@ -112,34 +132,42 @@ const Signin = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setLoginFormData({
-      ...loginFormData,
+    setFormData({
+      ...formData,
       [name]: value,
     });
   };
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
   return (
-    <div className="signin">
+    <div className="signup">
       <div className="form-container">
-        <p className="title">Welcome back</p>
+        <p className="title">Create account</p>
         <form
           onSubmit={handleSubmit}
           className="form"
-          action="/signin"
+          action="/signup"
           method="post"
         >
+          <input
+            type="text"
+            className="input"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+          />
           <input
             type="email"
             className="input"
             name="email"
             placeholder="Email"
-            value={loginFormData.email}
+            value={formData.email}
             onChange={handleChange}
-            autoComplete="off"
           />
           <div className="password-field">
             <input
@@ -147,35 +175,32 @@ const Signin = () => {
               className="input"
               name="password"
               placeholder="Password"
-              value={loginFormData.password}
+              value={formData.password}
               onChange={handleChange}
               autoComplete="off"
             />
             <div className="eye" onClick={togglePasswordVisibility}>
               {passwordVisible ? (
-                <AiOutlineEye className="eye-icon" size={20} />
+                <AiOutlineEye className="eye-icon" />
               ) : (
-                <AiOutlineEyeInvisible className="close-eye-icon" size={20} />
+                <AiOutlineEyeInvisible className="close-eye-icon" />
               )}
             </div>
           </div>
-          <p className="page-link">
-            <span className="page-link-label">Forgot Password?</span>
-          </p>
           <button className="form-btn" type="submit">
-            Log in
+            Create account
           </button>
         </form>
         <p className="sign-up-label">
-          Don't have an account?{" "}
-          <Link to="/signup">
-            <span className="sign-up-link">Sign up</span>
+          Already have an account?
+          <Link to="/signin">
+            <span className="sign-up-link">Log in</span>
           </Link>
         </p>
         <div className="buttons-container">
-          <div onClick={handleGithubSignIn} className="apple-login-button">
+          <div className="apple-login-button">
             <AiOutlineGithub size={24} />
-            <span>Log in with Github</span>
+            <span onClick={handleGithubSignUp}>Sign up with Github</span>
           </div>
           <div className="google-login-button">
             <svg
@@ -193,22 +218,28 @@ const Signin = () => {
             >
               <path
                 fill="#FFC107"
-                d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12 c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24 c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
-              />
+                d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12
+  c0-6.627,5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24
+  c0,11.045,8.955,20,20,20c11.045,0,20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"
+              ></path>
               <path
                 fill="#FF3D00"
-                d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657 C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
-              />
+                d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657
+  C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"
+              ></path>
               <path
                 fill="#4CAF50"
-                d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36 c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
-              />
+                d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36
+  c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"
+              ></path>
               <path
                 fill="#1976D2"
-                d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571 c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
-              />
+                d="M43.611,20.083H42V20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571
+  c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"
+              ></path>{" "}
             </svg>
-            <span onClick={handleGoogleSignIn}>Log in with Google</span>
+
+            <span onClick={handleGoogleSignUp}>Sign up with Google</span>
           </div>
         </div>
       </div>
@@ -216,4 +247,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;
