@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Task.css";
-import { useAppContext } from "../context";
+// import { useAppContext } from "../context";
 
 const Task = (props) => {
-  const { toggleAddToDoVisibility } = useAppContext();
+  // const { toggleAddToDoVisibility } = useAppContext();
   const [clicked, setClicked] = useState(false);
   const [showChecklist, setShowChecklist] = useState(false);
   const [checkedItems, setCheckedItems] = useState([]);
@@ -12,6 +12,7 @@ const Task = (props) => {
     month: 'short',
     day: 'numeric'
   });
+  console.log(clicked);
 
   const handleTickClick = async () => {
     setClicked(true);

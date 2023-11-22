@@ -8,6 +8,7 @@ const Canvas = require('./Model/CanvasSchema.js');
 const connectDb = require('./config/db.js');
 const Note = require('./Model/NoteSchema.js');
 const Daily = require('./Model/DailySchema.js');
+const GoogleAuth = require('./Model/GoogleAuthSchema.js');
 const schedule = require('node-schedule');
 const app = express();
 const middleware = require('./middleware')
@@ -61,6 +62,50 @@ app.post("/signup", async function (req, res) {
   }
 });
 
+app.post("/signup-google", async function (req, res) {
+  try {
+    const { name, email, password } = req.body;
+
+    // const salt = await bcrypt.genSalt(10);
+    // const hashedPassword = await bcrypt.hash(password, salt);
+
+    const newUser = new GoogleAuth({
+      name: name,
+      email: email,
+    });
+
+    const registeredUser = await GoogleAuth.findOne({ email: email });
+    if (registeredUser) {
+      res.status(400).json({ errorMessage: "User already registered!" });
+    } else {
+      newUser.save();
+      req.session.userId = newUser._id; // Store user ID in the session
+      res.status(200).json({ message: "User registered successfully" });
+      console.log("User registered successfully");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ errorMessage: "Error registering user." });
+  }
+});
+
+app.post("/signin-google", async function (req, res) {
+  try {
+    const { email, password } = req.body;
+    const registeredUser = await GoogleAuth.findOne({ email: email });
+    if (registeredUser) {
+      req.session.userId = registeredUser._id;
+      res.status(200).json({ message: "User logged in successfully" });
+      console.log("User logged in successfully");
+    } else {
+      res.status(400).json({ errorMessage: "User not registered" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ errorMessage: "Error logging in user." });
+  }
+});
+
 app.post("/signin", async function (req, res) {
   try {
     const { email, password } = req.body;
@@ -82,6 +127,7 @@ app.post("/signin", async function (req, res) {
     res.status(500).json({ errorMessage: "Error logging in user." });
   }
 });
+
 app.get('/logout', async (req, res) => {
   try {
     await req.session.destroy();

@@ -4,12 +4,14 @@ import { IoColorPaletteOutline } from "react-icons/io5";
 import { MdDelete, MdTaskAlt } from "react-icons/md";
 import {FaDropletSlash} from 'react-icons/fa6';
 import { IoMdDoneAll } from "react-icons/io";
+import Reminder from "../Reminder/Reminder";
 import "./Note.css";
 
 function Card(props) {
 
   const [isColorClicked, setColorClicked] = useState(false);
   const [color,setColor] = useState(props.color);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleDeleteClick = async () => {
     try {
@@ -85,7 +87,7 @@ function Card(props) {
         </div>
       </div>
       <div className="note-handle">
-        <li>
+        <li onClick={()=>{setIsOpen(!isOpen)}}>
           <BiBellPlus />
         </li>
         <li 
@@ -134,6 +136,7 @@ function Card(props) {
           <IoMdDoneAll />
         </li>
       </div>
+      {isOpen && (<Reminder />)}
     </div>
   );
 }

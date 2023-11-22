@@ -102,8 +102,6 @@
     display: inline;
 }
 
-/* Add this below your existing Task.css */
-
 .checklist-toggle {
     color: #686274;
     font-size: 12px;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Daily.css";
-import { SlOptionsVertical } from "react-icons/sl";
+// import { SlOptionsVertical } from "react-icons/sl";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useAppContext } from "../context";
 
@@ -8,6 +8,7 @@ const Daily = (props) => {
 
   const {toggleAddDailyVisibility} = useAppContext();
   const [clicked, setClicked] = useState(false);
+  setClicked(clicked);
 
   const handleDailyTaskDelete = async () => {
     try {

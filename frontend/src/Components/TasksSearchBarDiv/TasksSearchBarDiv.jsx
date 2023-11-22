@@ -3,12 +3,21 @@ import './TasksSearchBarDiv.css';
 import { FiPlus } from 'react-icons/fi';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { useAppContext } from '../context';
+import { useTaskContext } from '../TaskContext';
 
 const TasksSearchBarDiv = () => {
+
+    const useContext = useTaskContext();
+
+    const handleSearchBar = async (e) => {
+        setSearchTask(e.target.value);
+        await useContext.fetchTasks();
+    }
+
     const [addTaskIsClicked, setAddTaskClicked] = useState(false);
     const [tagsClicked,setTagsClicked] = useState(false);
 
-    const {toggleAddToDoVisibility,toggleAddDailyVisibility,toggleAddHabitVisibility} = useAppContext();
+    const {toggleAddToDoVisibility,toggleAddDailyVisibility,toggleAddHabitVisibility,searchTask,setSearchTask} = useAppContext();
 
     const handleAddTaskClick = () => {
         setAddTaskClicked(!addTaskIsClicked);
@@ -20,7 +29,7 @@ const TasksSearchBarDiv = () => {
     return (
         <div className="add-tasks-tags-div">
             <div className="search-bar">
-                <input placeholder='Search' />
+                <input value={searchTask}  onChange={handleSearchBar} placeholder='Search' />
             </div>
             <div className="tags-dropdown-btn-div">
                 <div className="tags-dropdown-btn" onClick={handleTagsClick}>

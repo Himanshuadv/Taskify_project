@@ -3,7 +3,7 @@ import './CSS/Notes.css'
 import Navbar from '../Components/Home Navbar/Navbar'
 import Footer from '../Components/Footer/Footer'
 import AddNoteBar from '../Components/AddNoteBar/AddNoteBar'
-import { CgNotes } from 'react-icons/cg'
+// import { CgNotes } from 'react-icons/cg'
 
 const Notes = () => {
   return (

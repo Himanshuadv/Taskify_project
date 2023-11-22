@@ -36,8 +36,13 @@ const ToDoEditContainer = (props) => {
             });
     
             if (response.ok) {
+                setTitle('');
+                setNote('');
+                setChecklistItems([]);
+                setTags('');
                 fetchTasks();
                 const data = await response.json();
+                console.log(data);
             } else {
                 console.error("Failed to add task");
             }
@@ -61,11 +66,11 @@ const ToDoEditContainer = (props) => {
         </div>
         <div className="title-input-div">
             <p>Title*</p>
-            <input onChange={(e)=>setTitle(e.target.value)} id="title-input" type="text" placeholder="Add a title" />
+            <input value={title} onChange={(e)=>setTitle(e.target.value)} id="title-input" type="text" placeholder="Add a title" />
         </div>
         <div className="notes-input-div">
             <p>Notes</p>
-            <textarea onChange={(e)=>setNote(e.target.value)} id="notes-input" type="text" placeholder="Add notes"/>
+            <textarea value={note} onChange={(e)=>setNote(e.target.value)} id="notes-input" type="text" placeholder="Add notes"/>
         </div>
         </div>
         <div className="edit-container-bottom">
@@ -96,7 +101,7 @@ const ToDoEditContainer = (props) => {
         </div>
         <div className="tags-input-div">
             <p>Tags: Leave Spaces or Use Commas</p>
-            <input onChange={(e)=>setTags(e.target.value)} className="tags-input" type="text" placeholder="Add tags..."/>
+            <input value={tags} onChange={(e)=>setTags(e.target.value)} className="tags-input" type="text" placeholder="Add tags..."/>
         </div>
         <button onClick={handleTaskCreated} >Create</button>
         </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import './Footer.css'
 import { MdTaskAlt } from 'react-icons/md'
-import {BiLogoFacebookCircle, BiPointer} from 'react-icons/bi'
+import {BiLogoFacebookCircle} from 'react-icons/bi'
 import {BsInstagram} from 'react-icons/bs'
 import {BsTwitter} from 'react-icons/bs'
 
