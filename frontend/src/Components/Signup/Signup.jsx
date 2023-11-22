@@ -32,6 +32,7 @@ const Signup = () => {
       formData.email = user.email;
       formData.name = user.displayName;
       formData.password =user.uid;
+      
       const response = await fetch("http://localhost:5000/signup-google", {
         method: "POST",
         credentials: "include",
@@ -110,7 +111,7 @@ const Signup = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/signup", {
+      const response = await fetch("http://localhost:8000/signup", {
         method: "POST",
         credentials: "include",
         headers: {
