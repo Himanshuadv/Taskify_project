@@ -42,6 +42,7 @@ const ToDoEditContainer = (props) => {
                 setTags('');
                 fetchTasks();
                 const data = await response.json();
+                console.log(data);
             } else {
                 console.error("Failed to add task");
             }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Reminder.css";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -9,8 +9,8 @@ import TextField from '@mui/material/TextField';
 import { MdCancel } from "react-icons/md";
 
 function Reminder() {
-  const [value, setValue] = useState(new Date()); // value is date
-  const [msg, setMsg] = useState(""); //msg set for backend
+  // const [value, setValue] = useState(new Date()); // value is date
+  // const [msg, setMsg] = useState(""); //msg set for backend
   const [selectedTime, setSelectedTime] = useState("20:00"); // Initial value is 8:00 PM
   const [selectedDate, handleDateChange] = useState(new Date());
   const datePickerStyle = {
@@ -29,10 +29,6 @@ function Reminder() {
 
     console.log(today); // This will log the full date with the selected time
   };
-
-  useEffect(() => {
-    handleToday();
-  }, [selectedTime]);
 
   const handleTomorrow = () => {
     const tomorrow = new Date();

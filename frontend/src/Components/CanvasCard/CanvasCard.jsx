@@ -32,9 +32,9 @@ function CanvasCard(props) {
       <div className="canvas-show-canvas-page-title" style={{display:displayTitle? 'block':'none'}}>
         {handleTitle}
       </div>
-      <Stage width={400} height={300}>
+      <Stage width={300} height={300}>
         <Layer>
-          <Rect width={400} height={300} fill={"#FFFFDD"} />
+          <Rect width={300} height={300} fill={"#FFF"} />
           {lines.map((line, i) => (
             <Line
               key={i}
@@ -49,8 +49,8 @@ function CanvasCard(props) {
         </Layer>
       </Stage>
       <div className="canvas-icons">
-        <MdEdit onClick={() => handleEditClick()} className="canvas-card-edit-icon" />
-        <MdDelete onClick={() => handleDeleteClick()} className="canvas-card-delete-icon" />
+        <MdEdit size={24} color="#000" onClick={() => handleEditClick()} className="canvas-card-edit-icon" />
+        <MdDelete size={24} color="#000" onClick={() => handleDeleteClick()} className="canvas-card-delete-icon" />
       </div>
     </div>
   );

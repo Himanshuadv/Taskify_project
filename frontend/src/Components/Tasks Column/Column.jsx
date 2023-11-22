@@ -56,6 +56,7 @@ const Column = () => {
         const data = await response.json();
         setNewTaskText("");
         fetchTasks();
+        console.log(data);
         // alert(data.message);
       } else {
         console.error("Failed to add task");

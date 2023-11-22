@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import {useNavigate} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
 import { Stage, Layer, Rect, Line } from "react-konva";
 import {FaPencil, FaPaintbrush} from 'react-icons/fa6';
 import {BsEraserFill} from 'react-icons/bs';
 import {FaHighlighter} from 'react-icons/fa';
 import { SketchPicker } from 'react-color';
+import {IoArrowBackOutline} from 'react-icons/io5';
 import "./Canvas.css";
 
 const Canvas = (props) => {
@@ -17,6 +18,7 @@ const Canvas = (props) => {
   const [isDrawing, setIsDrawing] = useState(false);
   const [title, setTitle] = useState('');
   const navigate = useNavigate();
+  
 
 
   const handleMouseDown = (e) => {
@@ -78,8 +80,9 @@ const Canvas = (props) => {
 
   return (
     <div className="canvas-area">
+    <Link to="/canvas-generator" ><span className="back-to-canvas" ><IoArrowBackOutline size={28} /></span></Link>
     <div className="canvas-title-area">
-        <textarea
+        <input
           placeholder="Enter a title"
           value={title}
           onChange={(e)=>{setTitle(e.target.value)}}
@@ -95,7 +98,7 @@ const Canvas = (props) => {
         onMouseup={handleMouseUp}
       >
         <Layer>
-          <Rect width={props.width} height={props.height} fill="#FFFFDD" />
+          <Rect width={props.width} height={props.height} fill="#FFF" />
           {lines.map((line, i) => (
             <Line
               key={i}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Signin.css";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -28,11 +28,7 @@ const Signin = () => {
       // Access email and name
       loginFormData.email = user.email;
       loginFormData.password =user.uid;
-<<<<<<< HEAD
-      const response = await fetch("http://localhost:5000/signin", {
-=======
-      const response = await fetch("http://localhost:8000/signin", {
->>>>>>> 990ceee3719f9f1f3266e97c13f41f927648da7f
+      const response = await fetch("http://localhost:5000/signin-google", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -69,11 +65,7 @@ const Signin = () => {
         password: password, // Replace this with a secure method for generating passwords
       };
   
-<<<<<<< HEAD
-      const response = await fetch("http://localhost:5000/signin", {
-=======
-      const response = await fetch("http://localhost:8000/signin", {
->>>>>>> 990ceee3719f9f1f3266e97c13f41f927648da7f
+      const response = await fetch("http://localhost:5000/signin-google", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -98,7 +90,7 @@ const Signin = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/signin", {
+      const response = await fetch("http://localhost:5000/signin", {
         method: "POST",
         credentials: "include",
         headers: {

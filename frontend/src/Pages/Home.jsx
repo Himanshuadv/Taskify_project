@@ -1,4 +1,6 @@
 import React from "react";
+// import gsap from "gsap";
+// import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Navbar from "../Components/Home Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
 import Hero from "../Components/Hero/Hero";
@@ -10,6 +12,7 @@ import ToDoEditContainer from "../Components/ToDo Edit Container/ToDoEditContain
 import { useAppContext } from "../Components/context";
 import DailyEditContainer from "../Components/Daily Edit Container/DailyEditContainer";
 import HabitsEditContainer from "../Components/Habits Edit Container/HabitsEditContainer";
+// import HabitsColumn from "../Components/Habits Column/HabitsColumn";
 
 // gsap.registerPlugin(ScrollTrigger);
 
@@ -43,9 +46,7 @@ const Home = () => {
       </div>
       <TasksSearchBarDiv />
       <div className="tasks-columns">
-        <Column />
         <DailiesColumn />
-        <Column />
         <Column />
       </div>
       <Footer />

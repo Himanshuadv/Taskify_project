@@ -1,0 +1,6 @@
+.canvas-display{
+    height: 100%;
+    width: 100%;
+    min-height: 88vh;
+    padding: 20px;
+}

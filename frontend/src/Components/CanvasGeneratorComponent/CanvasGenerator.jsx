@@ -74,9 +74,11 @@ function CanvasGenerator(props) {
 
   return (
     <div className="canvas-generator-component">
+      <Link to="/canvas">
       <div className="canvas-create-button">
-        <Link to="/canvas">Create Canvas</Link>
+        <p>Create Canvas</p>
       </div>
+      </Link>
       <div className="canvas-show-canvas">
         {canvasDatabase.map(showCanvases)}
       </div>

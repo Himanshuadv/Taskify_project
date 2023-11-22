@@ -3,7 +3,7 @@
 import React from "react";
 import "./LandingMain.css";
 import logo from "../Assets/logo.jpeg";
-import logo2 from "../Assets/logo2.jpeg"
+// import logo2 from "../Assets/logo2.jpeg"
 import { Link } from "react-router-dom";
 import { MdTaskAlt } from 'react-icons/md'
 
