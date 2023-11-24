@@ -6,15 +6,15 @@ import { useTaskContext } from "../TaskContext"; // Import the context hook
 
 const Column = () => {
   // Replace local state with context state
-  const { activeTasks, completedTasks, fetchTasks, setActiveTasks, setCompletedTasks } = useTaskContext();
+  const { activeTasks, completedTasks, fetchTasks, setActiveTasks, setCompletedTasks, searchTask } = useTaskContext();
   const [newTaskText, setNewTaskText] = useState("");
   const [clicked, setClicked] = useState("active");
-  const [tasksAdded, setTasksAdded] = useState(false);
+  const [tasksAdded, setTasksAdded] = useState(activeTasks.length===0);
   const textareaRef = React.createRef();
 
   useEffect(() => {
     fetchTasks();
-  }, [fetchTasks]); // Update the effect dependency to include fetchTasks
+  }); // Update the effect dependency to include fetchTasks
 
   const handleDragEnd = (result) => {
     if (!result.destination) return;
@@ -164,7 +164,7 @@ const Column = () => {
         </div>
         <div
           className="bg-initial-desc"
-          style={{ display: tasksAdded ? "none" : "flex" }}
+          style={{ display: activeTasks.length===0? "flex" : "none" }}
         >
           <div className="to-do-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

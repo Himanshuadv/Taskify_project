@@ -1,4 +1,5 @@
 .navbar {
+    position: relative;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -94,6 +95,7 @@ font-family: "Playpen Sans", cursive;
     padding: 5px;
     background-color: rgb(104, 101, 101);
     border-radius: 3px;
+    z-index: 99;
 }
 .user-icon:hover .user-icon-tooltip {
     display: block;
@@ -106,6 +108,7 @@ font-family: "Playpen Sans", cursive;
     padding: 5px;
     background-color: rgb(104, 101, 101);
     border-radius: 3px;
+    z-index: 99;
 }
 .logout-icon:hover .logout-icon-tooltip {
     display: block;
@@ -128,4 +131,180 @@ font-family: "Playpen Sans", cursive;
     color: #fff;
     border-radius: 50%;
     width: 20px;
+}
+.user-profile {
+    position: absolute;
+    right: 30px;
+    top: 100%;
+    height: 260px;
+    width: 350px;
+    border-radius: 10px;
+    background: rgb(228 228 228);
+    z-index: 99;
+    color: #000;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+    cursor: auto;
+    padding: 10px;
+}
+.user-profile-cross {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #1b1b1b;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.user-profile-cross:hover {
+    background: #bdbaba;
+}
+.user-profile-top {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.user-avatar-name {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.user-avatar{
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 20px 26px;
+    font-size: 24px;
+    border-radius: 50%;
+    background: orangered;
+    color: #fff;
+}
+.user-greet h1{
+    color: #1f1f1f;
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+.user-sign-out {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background: #d8d7d7;
+    cursor: pointer;
+}
+.user-sign-out:hover {
+    background: #c2c1c1;
+}
+.avatar-edit-icon {
+    position: absolute;
+    top:70%;
+    right: 0;
+    transition: all 0.3s;
+}
+.avatar-edit-icon i {
+    cursor: pointer;
+    font-size: 18px;
+    color: #4f4f4f;
+}
+.avatar-edit-icon:hover i{
+    color: #000;
+}
+.messages {
+    position: absolute;
+    top: 100%;
+    right: 100px;
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+    z-index: 99;
+    background: #fff;
+}
+.msg-top {
+    display: flex;
+    justify-content: space-between;
+}
+.msg-top h3 {
+    font-size: 14px;
+    color: #686274;
+}
+.msg-top p {
+    color: #A5A1Ac;
+    font-size: 12px;
+    cursor: pointer;
+}
+.msg-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.mid-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: none;
+}
+.menu-btn {
+    display: none;
+    cursor: pointer;
+}
+.menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    z-index: 99;
+    transition: all 0.3s;
+}
+.menu li {
+    width: 100%;
+    height: 40px;
+    background: rgb(26, 88, 232);
+    border-bottom: 1px solid white;
+    color: #fff;
+    display: flex;
+    align-items: center;justify-content: center;
+    cursor: pointer;
+}
+.menu li:hover{
+    background: rgb(49, 103, 230);
+}
+.menu-open {
+    height: 100%;
+    overflow: visible;
+}
+
+@media (max-width: 760px) {
+    .menu-btn {
+        display: block;
+    }
+    .home-nav-left-items {
+        display: none;
+    }
+    .home-logo {
+        display: none;
+    }
+    .navbar {
+        padding: 10px 20px;
+    }
+    .mid-logo {
+        display: block;
+    }
+    .menu {
+        display: block;
+    }
 }

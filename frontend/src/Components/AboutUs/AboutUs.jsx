@@ -7,7 +7,8 @@ import Lion from '../Assets/lion.jpg';
 
 const DesignerCarousel = ({ designers }) => {
   const [index, setIndex] = useState(0);
-  setIndex(index);
+  // setIndex(index);
+  console.log(index);
 
   // const handleSelect = (selectedIndex, e) => {
   //   setIndex(selectedIndex);
@@ -79,14 +80,14 @@ const AboutUs = () => {
   return (
     <div className="about-us-container">
       <Header />
-      <p className="about-us-intro">Welcome to Taskify, your all-in-one productivity solution!</p>
+      {/* <p className="about-us-intro">Welcome to Taskify, your all-in-one productivity solution!</p>
 
       <h2 className="designed-by-header">Designed By</h2>
       <DesignerCarousel designers={designers} />
 
       <h2 className="features-header">Features</h2>
       <p className="features-description">Taskify supports a variety of productivity tools to help you stay organized:</p>
-      <FeatureAccordion features={features} />
+      <FeatureAccordion features={features} /> */}
     </div>
   );
 };

@@ -18,6 +18,9 @@ const noteSchema = mongoose.Schema({
     },
     reminder : {
         type: Date,
+    },
+    reminderText : {
+        type: String,
     }
 }, {
     timestamps: true,

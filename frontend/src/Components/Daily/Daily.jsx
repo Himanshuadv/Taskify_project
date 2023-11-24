@@ -8,7 +8,7 @@ const Daily = (props) => {
 
   const {toggleAddDailyVisibility} = useAppContext();
   const [clicked, setClicked] = useState(false);
-  setClicked(clicked);
+  console.log(clicked);
 
   const handleDailyTaskDelete = async () => {
     try {

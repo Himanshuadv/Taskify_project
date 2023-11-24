@@ -175,3 +175,48 @@
     border-color: black;
     transform: scale(1.2);
 }
+
+.note-alarm-clock{
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 5px;
+    right: -15px;
+    transition: all 0.3s;
+}
+
+.note-alarm-details{
+    width: 100px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: absolute;
+    top: 30px;
+    right: 0;
+    opacity: 0;
+    cursor: auto;
+    z-index: 200;
+    background-color: #dedcdc;
+    border: 1px soild transparent;
+    border-radius: 10px;
+    margin: 0;
+    padding: 0;
+    transition: all 0.9s;
+}
+
+.note-alarm-details h6{
+    font-size: 8px;
+}
+
+.note-alarm-details p{
+    font-size: 7px;
+}
+
+.note-alarm-clock:hover + .note-alarm-details{
+    opacity: 1;
+}
+
+.note-alarm-clock:hover{
+    font-size: 18px;
+}

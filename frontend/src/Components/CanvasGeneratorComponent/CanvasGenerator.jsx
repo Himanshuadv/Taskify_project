@@ -58,16 +58,17 @@ function CanvasGenerator(props) {
   }, []);
 
   const showCanvases = (e) => {
-    console.log(e.lines);
 
     const lines = e.lines;
     const title = e.title;
+
+    console.log(e._id);
 
     return (
       <div 
       className={"canvas-show-canvas-page"}
       >
-        <CanvasCard lines={lines} title={title} />
+        <CanvasCard fetchCanvases={fetchCanvases} id={e._id} lines={lines} title={title} />
       </div>
     );
   };
@@ -84,7 +85,7 @@ function CanvasGenerator(props) {
       </div>
       <div
         className="canvas-initial-bg"
-        style={{ display: isCanvas ? "none" : "flex" }}
+        style={{ display: canvasDatabase.length===0 ? "flex" : "none" }}
       >
         <CgNotes size={80} color="rgba(0,0,0,.2)" />
         <div className="canvas-initial-bg-txt">Canvas you add appear here</div>

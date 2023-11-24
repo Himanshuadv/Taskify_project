@@ -10,8 +10,8 @@ const ToDoEditContainer = (props) => {
     const [newItemText, setNewItemText] = useState('');
     const [title,setTitle] = useState('');
     const [note,setNote] = useState('');
-    const [dueDate,setDueDate] = useState(new Date());
-    const [tags,setTags] = useState('');
+    const [dueDate,setDueDate] = useState(null);
+    const [tags,setTags] = useState(null);
 
 
     const handleKeyPress = (event) => {
@@ -24,7 +24,7 @@ const ToDoEditContainer = (props) => {
     };
 
     const handleTaskCreated = async () => {
-        
+        toggleAddToDoVisibility();
         try {
             const response = await fetch("http://localhost:5000/task-added-through-editor", {
                 method: "POST",
@@ -51,7 +51,6 @@ const ToDoEditContainer = (props) => {
         }
     
     };
-
 
     const {toggleAddToDoVisibility} = useAppContext();
     return (

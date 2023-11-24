@@ -1,0 +1,47 @@
+.msg-div {
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.message-icon {
+    color: #4f4f4f;
+}
+.msg-title h3 {
+    color: #4a4a4b;
+    font-size: 14px;
+}
+.msg-text p {
+    color: #878190;
+    font-size: 12px;
+}
+.msg {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.msg-div-seen {
+    cursor: auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+.message-icon-seen {
+    color: #4f4f4f;
+}
+.msg-title-seen h3 {
+    color: #878190;
+    text-decoration: line-through;
+    font-size: 14px;
+}
+.msg-text-seen p {
+    color: #878190;
+    font-size: 12px;
+}
+.msg-seen {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+

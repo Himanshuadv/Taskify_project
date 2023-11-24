@@ -6,6 +6,7 @@ import {FaDropletSlash} from 'react-icons/fa6';
 import { MdDelete } from "react-icons/md";
 import { IoMdDoneAll } from "react-icons/io";
 import {AiOutlineClose} from "react-icons/ai"
+// import Reminder from '../Reminder/Reminder';
 import Card from '../Note/Note';
 import { CgNotes } from 'react-icons/cg';
 
@@ -71,7 +72,7 @@ function AddNoteBar(props)
           title: newNoteTitle,
           note: newNoteText,
           color: color,
-          reminder: new Date(),
+          reminder: null,
         }),
       });
 
@@ -114,7 +115,7 @@ function AddNoteBar(props)
       <span 
       className="add-note-bar-cross"
       style={{display: isTextFocused? 'block':'none'}}
-      onClick={()=>setIsTextFocused(false)}
+      onClick={()=>{setIsTextFocused(false); setColor('white')}}
       >
         <AiOutlineClose style={{marginTop:"5px"}}/>
         </span>
@@ -167,7 +168,7 @@ function AddNoteBar(props)
               </ul>
           </div>
         </li>
-        <li>
+        <li onClick={()=>{setIsTextFocused(false); setColor('white')}}>
           <MdDelete />
         </li>
         <li>
@@ -182,10 +183,11 @@ function AddNoteBar(props)
         Add
       </div>
       </div>
+      {/* <Reminder setIsAlarm={setIsAlarm} display={isOpen? 'flex' : 'none'} setIsOpen={setIsOpen} /> */}
     </div>
     <div className="notes-display">
     {notes.map((note,index)=>{
-      return <Card key={note._id} updateNotes={fetchNotes} id={note._id} title={note.title} note={note.note} color={note.color} />
+      return <Card key={note._id} updateNotes={fetchNotes} reminder={note.reminder} reminderText={note.reminderText} id={note._id} title={note.title} note={note.note} color={note.color} />
     })}
     <div className="notes-initial-bg" style={{ display: isNote ? 'none' : 'flex' }}>
         <CgNotes size={80} color='rgba(0,0,0,.2)'/>
