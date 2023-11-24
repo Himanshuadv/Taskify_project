@@ -121,3 +121,9 @@
     max-height: 100px;
     transition: max-height 0.5s ease-in-out;
 }
+
+@media (max-width:800px) {
+    .column {
+        width: 90% !important;
+    }
+}

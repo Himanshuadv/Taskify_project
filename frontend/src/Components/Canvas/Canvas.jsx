@@ -149,7 +149,7 @@ const Canvas = (props) => {
           </li>
           <li
             onClick={() => {
-              setColor("#FFFFDD");
+              setColor("#FFFF");
               setOpacityLine(1);
             }}
           >

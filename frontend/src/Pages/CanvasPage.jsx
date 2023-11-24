@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Navbar from '../Components/Home Navbar/Navbar';
 import Footer from '../Components/Footer/Footer';
 import Canvas from '../Components/Canvas/Canvas';
 
 const CanvasPage = () => {
 
-    const [height, setHeight] = useState(800);
-    const [width, setWidth] = useState(800);
-
-    setHeight(height);
-    setWidth(width);
+    const height = 800;
+    const width = 800;
 
     return(
         <div className="canvas-container">

@@ -235,3 +235,9 @@
     border-color: black;
     transform: scale(1.2);
 }
+
+@media (max-width: 760px) {
+    .add-note-bar{
+        width: 90%;
+    }
+}

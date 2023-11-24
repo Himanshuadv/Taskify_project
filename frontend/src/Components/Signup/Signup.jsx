@@ -29,10 +29,9 @@ const Signup = () => {
       console.log(user);
 
       // Access email and name
-      formData.email = user.email;
-      formData.name = user.displayName;
-      formData.password =user.uid;
-      
+      formData.email = user.email.trim();
+      formData.name = user.displayName.trim();
+      formData.password =user.uid.trim();
       const response = await fetch("http://localhost:5000/signup-google", {
         method: "POST",
         credentials: "include",

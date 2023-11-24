@@ -1,17 +1,27 @@
-import React ,{useState } from "react";
+import React ,{ useState, useEffect } from "react";
 import { BiBellPlus } from "react-icons/bi";
 import { IoColorPaletteOutline } from "react-icons/io5";
 import { MdDelete, MdTaskAlt } from "react-icons/md";
 import {FaDropletSlash} from 'react-icons/fa6';
 import { IoMdDoneAll } from "react-icons/io";
 import Reminder from "../Reminder/Reminder";
+import { LuAlarmClock } from "react-icons/lu";
+import { useTaskContext } from "../TaskContext";
 import "./Note.css";
 
 function Card(props) {
 
+  const {displayAlertAtTime} = useTaskContext();
   const [isColorClicked, setColorClicked] = useState(false);
   const [color,setColor] = useState(props.color);
   const [isOpen, setIsOpen] = useState(false);
+  const [isAlarm,setIsAlarm] = useState(props.reminder);
+  const [reminder,setReminder] = useState(props.reminder);
+  const [reminderMessage,setReminderMessage] = useState(props.reminderText);
+
+  useEffect(() => {
+    displayAlertAtTime(props.id, props.note, props.reminder, props.reminderText);
+  },[]);
 
   const handleDeleteClick = async () => {
     try {
@@ -38,14 +48,8 @@ function Card(props) {
 }
 
   const handleColorClicked = () => {
-    if(isColorClicked)
-    {
-      setColorClicked(false);
-    }
-    else
-    {
-      setColorClicked(true);
-    }
+    setColorClicked(!isColorClicked);
+    setIsOpen(false);
   }
 
   const handleColorChoosed = async (e) => {
@@ -87,7 +91,7 @@ function Card(props) {
         </div>
       </div>
       <div className="note-handle">
-        <li onClick={()=>{setIsOpen(!isOpen)}}>
+        <li onClick={()=>{setIsOpen(!isOpen); setColorClicked(false);}}>
           <BiBellPlus />
         </li>
         <li 
@@ -132,11 +136,21 @@ function Card(props) {
         <li>
           <IoMdDoneAll />
         </li>
-        <li>
-          <IoMdDoneAll />
-        </li>
       </div>
-      {isOpen && (<Reminder />)}
+      <Reminder 
+      setIsAlarm={setIsAlarm} 
+      display={isOpen? 'flex' : 'none'} 
+      id={props.id} 
+      note={props.note}
+      setIsOpen={setIsOpen}
+      setReminderMessage={setReminderMessage}
+      setReminder={setReminder}
+      />
+      <span className="note-alarm-clock" style={{display: isAlarm? 'block' : 'none' }} ><LuAlarmClock /></span>
+      <div className="note-alarm-details">
+        <h6>{reminderMessage}</h6>
+        <p>{reminder}</p>
+      </div>
     </div>
   );
 }

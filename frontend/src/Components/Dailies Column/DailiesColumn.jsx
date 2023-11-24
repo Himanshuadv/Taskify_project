@@ -2,53 +2,26 @@ import React, { useState, useEffect } from "react";
 import "./DailiesColumn.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Daily from "../Daily/Daily";
+import { useTaskContext } from "../TaskContext";
 
 const DailiesColumn = () => {
-  const [newDailiesText, setNewDailiesText] = useState("");
   const [clicked, setClicked] = useState("all");
-  const [dailiesAdded, setDailiesAdded] = useState(false);
-  const [dailies, setDailies] = useState([]);
   const textareaRef = React.createRef();
-  const [notdue, setNotDue] = useState([]);
-  const [due, setDue] = useState([]);
+  const {newDailiesText,setNewDailiesText,dailiesAdded,setDailiesAdded,dailies,setDailies,notdue,setNotDue,due,setDue,fetchDailies} = useTaskContext();
 
   const handleItemClick = (item) => {
     setClicked(item);
-  };
-  const fetchDailies = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/get-dailies", {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      if (response.ok) {
-        const dailiesData = await response.json();
-        setDailies(dailiesData.dailies.reverse());
-        const completed = dailiesData.dailies.filter((daily) => daily.done);
-        const notCompleted = dailiesData.dailies.filter((daily) => !daily.done);
-        setNotDue(completed);
-        setDue(notCompleted);
-        setDailiesAdded(dailiesData.dailies.length > 0);
-      } else {
-        console.error("Failed to fetch dailies");
-      }
-    } catch (error) {
-      console.error("Error", error);
-    }
   };
 
   useEffect(() => {
     fetchDailies();
   }, []);
+
   const handleAddDailies = async () => {
     textareaRef.current.blur();
     if (newDailiesText.trim() === "") {
       return;
     }
-
     try {
       setDailiesAdded(true);
       const response = await fetch("http://localhost:5000/dailies", {
@@ -146,6 +119,10 @@ const DailiesColumn = () => {
                               {...provided.dragHandleProps}
                             >
                               <Daily
+                                key={daily._id}
+                                note={daily.note}
+                                checklist={daily.checklist}
+                                tags={daily.tags}
                                 text={daily.title}
                                 dailyId={daily._id}
                                 status={daily.done}
@@ -157,8 +134,12 @@ const DailiesColumn = () => {
                       ))
                     : clicked === "due"
                     ? due.map((daily, index) => (
-                        <div key={daily._id}>
+                        <div>
                           <Daily
+                            key={daily._id}
+                            note={daily.note}
+                            checklist={daily.checklist}
+                            tags={daily.tags}
                             text={daily.title}
                             dailyId={daily._id}
                             status={daily.done}
@@ -170,6 +151,10 @@ const DailiesColumn = () => {
                     ? notdue.map((daily, index) => (
                         <div key={daily._id}>
                           <Daily
+                            key={daily._id}
+                            note={daily.note}
+                            checklist={daily.checklist}
+                            tags={daily.tags}
                             text={daily.title}
                             dailyId={daily._id}
                             status={daily.done}

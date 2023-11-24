@@ -12,6 +12,8 @@ const GoogleAuth = require('./Model/GoogleAuthSchema.js');
 const schedule = require('node-schedule');
 const app = express();
 const middleware = require('./middleware')
+const Notification = require('./Model/NotificationSchema.js');
+const nodemailer = require('nodemailer');
 
 connectDb();
 
@@ -37,6 +39,7 @@ app.use(
 app.post("/signup", async function (req, res) {
   try {
     const { name, email, password } = req.body;
+    if(email && password) {
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
@@ -56,8 +59,13 @@ app.post("/signup", async function (req, res) {
       res.status(200).json({ message: "User registered successfully" });
       console.log("User registered successfully");
     }
+  }
+  else{
+    res.status(400).json({ errorMessage: "Email and Password Required!" });
+  }
   } catch (error) {
     console.error(error);
+    console.log(error);
     res.status(500).json({ errorMessage: "Error registering user." });
   }
 });
@@ -65,9 +73,6 @@ app.post("/signup", async function (req, res) {
 app.post("/signup-google", async function (req, res) {
   try {
     const { name, email, password } = req.body;
-
-    // const salt = await bcrypt.genSalt(10);
-    // const hashedPassword = await bcrypt.hash(password, salt);
 
     const newUser = new GoogleAuth({
       name: name,
@@ -128,6 +133,22 @@ app.post("/signin", async function (req, res) {
   }
 });
 
+app.get("/get-user-profile", async (req, res) => {
+  const currentUserId = req.session.userId;
+  try {
+    const user = await User.findOne({ _id: currentUserId });
+
+    if (user) {
+      res.status(200).json({ user: user });
+    } else {
+      res.status(404).json({ message: "User not found" });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 app.get('/logout', async (req, res) => {
   try {
     await req.session.destroy();
@@ -145,10 +166,61 @@ app.post('/task', async function (req, res) {
     const newTask = new Task({
       userid: currentUserId,
       title: title,
-      note: "This is a task",
       done: false
     });
     newTask.save();
+    res.status(200).json({ message: "Task Added Successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ errorMessage: "Error adding task" });
+  }
+});
+
+// api to delete a to-do task
+app.delete("/delete-to-do", async (req, res) => {
+  try {
+    const { todoId } = req.body;
+
+    // Use findById for simplicity and conciseness
+    const task = await Task.findById(todoId);
+
+    if (!task) {
+      return res.status(404).json({ message: "Task not found" });
+    }
+
+    const deletionResult = await Task.deleteOne({ _id: todoId });
+
+    if (deletionResult.deletedCount === 1) {
+      res.status(200).json({ message: "Task deleted" });
+    } else {
+      res.status(500).json({ message: "Failed to delete Task" });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// api to  create daily using edit box
+app.post('/daily-added-through-editor', async function (req, res) {
+  const currentUserId = req.session.userId; // Retrieve user ID
+  try {
+    const { title, note, checklist, tags } = req.body;
+
+    // Split tags at spaces or commas and trim each tag
+    const tagsArray = tags.split(/[ ,]+/).map(tag => tag.trim());
+
+    const newDaily = new Daily({
+      userid: currentUserId,
+      title: title,
+      note: note,
+      checklist: checklist,
+      done: false,
+      tags: tagsArray,
+    });
+
+    await newDaily.save();
+
     res.status(200).json({ message: "Task Added Successfully" });
   } catch (error) {
     console.error(error);
@@ -163,7 +235,7 @@ app.post('/task-added-through-editor', async function (req, res) {
     const { title, note, checklist, dueDate, tags } = req.body;
 
     // Split tags at spaces or commas and trim each tag
-    const tagsArray = tags.split(/[ ,]+/).map(tag => tag.trim());
+    const tagsArray = tags===null? [] : tags.split(/[ ,]+/).map(tag => tag.trim());
 
     const newTask = new Task({
       userid: currentUserId,
@@ -191,6 +263,7 @@ app.get('/get-tasks', async function (req, res) {
  });
   res.status(200).json({ tasks: taskData });
 });
+
 app.put('/update-task-status', async function (req, res) {
   try {
     const { taskId } = req.body;
@@ -274,7 +347,7 @@ app.delete('/delete-note', async function(req,res){
 // api code to update note color
 app.put('/update-note-reminder', async function(req,res){
   try {
-    const { id, reminder } = req.body;
+    const { reminder, id , message } = req.body;
     const note = await Note.findOne({ _id: id });
 
     if (!note) {
@@ -282,6 +355,7 @@ app.put('/update-note-reminder', async function(req,res){
     }
 
     note.reminder = reminder;
+    note.reminderText = message;
 
     await note.save();
 
@@ -316,6 +390,40 @@ app.post('/canvas', async function (req, res) {
   } catch (error) {
     console.error(error);
     res.status(500).json({ errorMessage: "Error saving Canvas" });
+  }
+});
+
+// api code to update canvas
+app.put('/update-canvas', async function (req, res) {
+  try {
+    const { line, title, canvasId } = req.body;
+    
+    const updatedCanvas = await Canvas.findOne({_id : canvasId});
+    
+    updatedCanvas.line = line;
+    updatedCanvas.title = title;
+    updatedCanvas.save();
+    res.status(200).json({ message: "Canvas Saved Successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ errorMessage: "Error saving Canvas" });
+  }
+});
+
+// api code to delete canvas 
+app.delete("/delete-canvas", async function (req, res){
+  try {
+    const {id} = req.body;
+    const deletionResult = await Canvas.deleteOne({ _id: id });
+
+    if (deletionResult.deletedCount === 1) {
+      res.status(204).send();
+    } else {
+      res.status(500).json({ message: "Failed to delete canvas" });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
   }
 });
 
@@ -411,6 +519,106 @@ app.delete("/delete-daily-task", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
+
+// notification getting through backend
+app.get('/get-notification', async function (req, res) {
+  const currentUserId = req.session.userId; // Retrieve user ID from the session
+  const NotificationData = await Notification.find({userid: currentUserId,
+  });
+  res.status(200).json({ notifications: NotificationData });
+});
+
+// notification saving through backend
+app.post('/notification', async function (req, res) {
+  // const email = await User.find({_id: req.session.userId}).email;
+    try {
+  //     const transporter = nodemailer.createTransport({
+  //       service: "gmail",
+  //       auth: {
+  //           user: "dheerajsharma5948@gmail.com",
+  //           pass: "hrvk yhkw iuzh ricy"
+  //         },
+  //         secure: true,
+  //       });
+  //   const mailOptions = {
+  //       from: "dheerajsharma5948@gmail.com",
+  //       to: email,
+  //       subject: "Reminder",
+  //       text: `${req.body.reminderMessage} \n ${req.body.note}`
+  //   };
+  //   transporter.sendMail(mailOptions,(error,info)=>{
+  //     if(error) 
+  //     {console.error(error)}
+  //     else{
+  //       console.log("Email send"+info.response);
+  //     }
+  //   });
+    const currentUser = req.session.userId;
+
+    const {id, note, reminderMessage} = req.body;
+
+    const newNotification = new Notification({
+      userid: currentUser,
+      noteId: id,
+      note: note,
+      reminderText: reminderMessage,
+      seen: false,
+    });
+
+    newNotification.save();
+    res.status(200).json({ message: "Notification Added Successfully!" });
+
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.put('/update-notification', function (req, res) {
+  try {
+    const {id} = req.body;
+    const notification = Notification.findOne({ id: id});
+    notification.seen = true;
+    notification.save();
+    res.status(200).json({ message: "Notification Added Successfully!" });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// update message status
+app.put('/update-msg-status', async function (req, res) {
+  const id = req.body.notificationId;
+  try {
+    const notification = await Notification.findOne({ _id: id});
+    notification.seen = true;
+    notification.save();
+    res.status(200).json({ message: "Notification Updated Successfully!" });
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+// delete notifications for user
+app.delete("/delete-notifications", async (req, res) => {
+  const currentUser = req.session.userId;
+
+  try {
+    const deletionResult = await Notification.deleteMany({ userid: currentUser });
+
+    if (deletionResult.deletedCount > 0) {
+      res.status(204).send();
+    } else {
+      res.status(500).json({ message: "Failed to delete notifications" });
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 
 // Start the server
 const port = process.env.PORT || 5000;

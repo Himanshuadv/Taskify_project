@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <div className="home">
       <Navbar />
-      <Hero />
+      {/* <Hero /> */}
       <div
         className="todo-edit-container"
         style={{ display: isAddToDoVisible ? "block" : "none" }}

@@ -48,7 +48,7 @@ const Header = () => {
             <ul>
             <li><Link to='/signup'>Get Started</Link></li>
               <li>Contact Us</li>
-              <Link to='/aboutus'><li>About Us</li></Link>
+              <li className='about-clicked'><Link to='/aboutus'>About Us</Link></li>
             </ul>
           </div>
         </div>
@@ -56,7 +56,7 @@ const Header = () => {
   <Link to='/signin' className="your-link-styles">Login</Link>
 </div>
       </div>
-    <Link to="/" ><span className="back-to-landing" ><IoArrowBackOutline size={28} /></span></Link>
+    {/* <Link to="/" ><span className="back-to-landing" ><IoArrowBackOutline size={28} /></span></Link> */}
 
       <div className="about-page-container">
         <header className="about-section-header">
@@ -69,7 +69,7 @@ const Header = () => {
         <div className="about-section-row">
           {aboutCols.map((col, index) => (
             <div key={index} className="about-section-column">
-              <div className="about-section-col">
+              {/* <div className="about-section-col">
                 <div className="about-section-img">
                   <img src={col.imgSrc} alt=""/>
                   <div className="about-section-icon">
@@ -82,7 +82,19 @@ const Header = () => {
                 <p className="about-section-text-center">
                   {col.description}
                 </p>
-              </div>
+              </div> */}
+              <div class="about-flip-card">
+                <div class="about-flip-card-inner">
+                    <div class="about-flip-card-front">
+                        <p class="about-title-title">{col.title}</p>
+                        {/* <p>ChakraCoders</p> */}
+                    </div>
+                    <div class="about-flip-card-back">
+                        <p class="about-title">{col.description}</p>
+                        {/* <p></p> */}
+                    </div>
+                </div>
+            </div>
             </div>
           ))}
         </div>
