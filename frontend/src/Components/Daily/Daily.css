@@ -1,6 +1,5 @@
 .daily {
     position: relative;
-    height: 60px;
     width: 100%;
     margin-bottom: 2px;
     border-radius: 5px;
@@ -22,7 +21,6 @@
 }
 .daily-tick {
     width: 40px;
-    height: 60px;
     background: #24CC8F;
     border-top-left-radius: 5px;
     border-bottom-left-radius: 5px;
@@ -51,7 +49,9 @@
 .daily-clickable-area {
     width: 100%;
     padding: 7px;
-    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 .grab {
     position: absolute;
@@ -64,7 +64,7 @@
 .completed .daily-tick{
     background: #878190;
 }
-.completed .p {
+.completed p {
     color: #34313A;
 }
 .completed .tick svg {
@@ -72,7 +72,7 @@
 }
 .delete-icon {
     position: absolute;
-    bottom: 0;
+    top: 0;
     right: 2px;
     opacity: 0;
     color: #34313a;
@@ -85,4 +85,46 @@
 }
 .delete-icon:active {
     transform: scale(1.2);
+}
+.tags-icon {
+    position: absolute;
+    bottom: 0;
+    right: 5px;
+}
+.daily-tags {
+    opacity: 0;
+    position: absolute;
+    width: fit-content;
+    max-width: 200px;
+    padding: 10px;
+    border-radius: 3px;
+    background-color: rgb(82, 78, 91);
+    top: 100%;
+    right: 5px;
+    z-index: 99;
+    display: flex;
+    gap: 5px;
+    z-index: -1;
+    transition: opacity 0.3s ease-out;
+}
+.tags-hovered {
+    opacity: 1;
+    z-index: 1;
+}
+
+.daily-tags p {
+    color: #fff;
+    font-size: 12px;
+    height: fit-content;
+}
+.daily-title p {
+    font-size: 16px;
+    color: #34313a;
+}
+.daily-notes p {
+    font-size: 14px;
+    color: #686274;
+}
+.checklist-toggle{
+    margin: 3px 0;
 }

@@ -119,6 +119,10 @@ const DailiesColumn = () => {
                               {...provided.dragHandleProps}
                             >
                               <Daily
+                                key={daily._id}
+                                note={daily.note}
+                                checklist={daily.checklist}
+                                tags={daily.tags}
                                 text={daily.title}
                                 dailyId={daily._id}
                                 status={daily.done}
@@ -130,8 +134,12 @@ const DailiesColumn = () => {
                       ))
                     : clicked === "due"
                     ? due.map((daily, index) => (
-                        <div key={daily._id}>
+                        <div>
                           <Daily
+                            key={daily._id}
+                            note={daily.note}
+                            checklist={daily.checklist}
+                            tags={daily.tags}
                             text={daily.title}
                             dailyId={daily._id}
                             status={daily.done}
@@ -143,6 +151,10 @@ const DailiesColumn = () => {
                     ? notdue.map((daily, index) => (
                         <div key={daily._id}>
                           <Daily
+                            key={daily._id}
+                            note={daily.note}
+                            checklist={daily.checklist}
+                            tags={daily.tags}
                             text={daily.title}
                             dailyId={daily._id}
                             status={daily.done}

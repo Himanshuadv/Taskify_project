@@ -34,6 +34,7 @@ export const TaskProvider = ({ children }) => {
       });
       if (response.ok) {
         const dailiesData = await response.json();
+        console.log(dailiesData.dailies + " tasks completed");
         setDailies(dailiesData.dailies.reverse());
         const completed = dailiesData.dailies.filter((daily) => daily.done);
         const notCompleted = dailiesData.dailies.filter((daily) => !daily.done);

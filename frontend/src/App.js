@@ -10,6 +10,7 @@ import CanvasGenerator from './Pages/CanvasGeneratorPage';
 import { AppProvider } from './Components/context';
 import Canvas from './Pages/CanvasPage';
 import {TaskProvider} from './Components/TaskContext';
+// import ContactUsPage from './Pages/ContactUsPage';
 // import CanvasEditorPage from './Pages/CanvasEditorPage';
 // import IndividualIntervalsExample from './Components/IndividualIntervalExample';
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/canvas-generator" element={<CanvasGenerator />} />
             <Route path="/canvas" element={<Canvas />} />
             <Route path="/aboutus" element={<AboutUsPage />} />
+            {/* <Route path="/contactus" element={<ContactUsPage />} /> */}
             {/* <Route path='canvas-editor' element={<CanvasEditorPage />} /> */}
             {/* <Route path="/aboutus" element={<IndividualIntervalsExample />} /> */}
           </Routes>
