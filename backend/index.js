@@ -637,7 +637,9 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"))
   );
 }
-
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
 
 // Start the server
 const port = process.env.PORT || 8000;
