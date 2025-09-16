@@ -9,7 +9,7 @@ const Message = (props) => {
 
     const handleMsgSeen = async () => {
         try {
-            const response = await fetch("http://localhost:5000/update-msg-status", {
+            const response = await fetch("http://localhost:8000/update-msg-status", {
                 method: "PUT",
                 credentials: "include",
                 headers: {

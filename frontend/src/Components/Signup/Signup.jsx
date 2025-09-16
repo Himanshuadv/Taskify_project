@@ -32,7 +32,7 @@ const Signup = () => {
       formData.email = user.email.trim();
       formData.name = user.displayName.trim();
       formData.password =user.uid.trim();
-      const response = await fetch("http://localhost:5000/signup-google", {
+      const response = await fetch("http://localhost:8000/signup-google", {
         method: "POST",
         credentials: "include",
         headers: {
@@ -80,7 +80,7 @@ const Signup = () => {
         password: password, // Replace this with a secure method for generating passwords
       };
   
-      const response = await fetch("http://localhost:5000/signup-google", {
+      const response = await fetch("http://localhost:8000/signup-google", {
         method: "POST",
         credentials: "include",
         headers: {

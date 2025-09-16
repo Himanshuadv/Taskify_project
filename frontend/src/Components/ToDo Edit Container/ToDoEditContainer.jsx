@@ -26,7 +26,7 @@ const ToDoEditContainer = (props) => {
     const handleTaskCreated = async () => {
         toggleAddToDoVisibility();
         try {
-            const response = await fetch("http://localhost:5000/task-added-through-editor", {
+            const response = await fetch("http://localhost:8000/task-added-through-editor", {
                 method: "POST",
                 credentials: "include",
                 headers: {

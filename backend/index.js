@@ -11,6 +11,7 @@ const Daily = require('./Model/DailySchema.js');
 const GoogleAuth = require('./Model/GoogleAuthSchema.js');
 const schedule = require('node-schedule');
 const app = express();
+const path = require("path")
 const middleware = require('./middleware')
 const Notification = require('./Model/NotificationSchema.js');
 const nodemailer = require('nodemailer');
@@ -22,7 +23,10 @@ const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true, // Allow cookies and credentials
 };
-app.use(cors(corsOptions));
+app.use(cors({
+  origin: "http://localhost:3000",  // your frontend URL
+  credentials: true,                // if you’re using cookies or auth headers
+}));
 app.use(express.json());
 app.use(
   session({
@@ -619,9 +623,15 @@ app.delete("/delete-notifications", async (req, res) => {
   }
 });
 
+//production script
+app.use(express.static('./frontend/build'));
+app.get("*",(req,res)=>{
+  res.sendFile(path.resolve(__dirname,"frontend","build","index.html"))
+});
+
 
 // Start the server
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 8000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

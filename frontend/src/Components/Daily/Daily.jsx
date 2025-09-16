@@ -36,7 +36,7 @@ const Daily = (props) => {
   };
   const handleDailyTaskDelete = async () => {
     try {
-      const response = await fetch("http://localhost:5000/delete-daily-task", {
+      const response = await fetch("http://localhost:8000/delete-daily-task", {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -64,7 +64,7 @@ const Daily = (props) => {
     // Make an HTTP request to update the task's status
     try {
       const response = await fetch(
-        "http://localhost:5000/update-daily-status",
+        "http://localhost:8000/update-daily-status",
         {
           method: "PUT",
           credentials: "include",

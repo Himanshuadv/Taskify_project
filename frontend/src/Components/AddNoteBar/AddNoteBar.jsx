@@ -14,7 +14,7 @@ function AddNoteBar(props)
 {
   const fetchNotes = async () => {
       try {
-          const response = await fetch("http://localhost:5000/get-notes", {
+          const response = await fetch("http://localhost:8000/get-notes", {
           method: "GET",
           credentials: "include",
           headers: {
@@ -62,7 +62,7 @@ function AddNoteBar(props)
     }
     else
     {try {
-      const response = await fetch("http://localhost:5000/note", {
+      const response = await fetch("http://localhost:8000/note", {
         method: "POST",
         credentials: "include",
         headers: {

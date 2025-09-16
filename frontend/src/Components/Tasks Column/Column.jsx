@@ -43,7 +43,7 @@ const Column = () => {
 
     try {
       setTasksAdded(true);
-      const response = await fetch("http://localhost:5000/task", {
+      const response = await fetch("http://localhost:8000/task", {
         method: "POST",
         credentials: "include",
         headers: {

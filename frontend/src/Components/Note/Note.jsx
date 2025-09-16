@@ -25,7 +25,7 @@ function Card(props) {
 
   const handleDeleteClick = async () => {
     try {
-      const response = await fetch("http://localhost:5000/delete-note", {
+      const response = await fetch("http://localhost:8000/delete-note", {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -57,7 +57,7 @@ function Card(props) {
     const backgroundColor = style.backgroundColor;
     setColor(backgroundColor);
     try {
-      const response = await fetch("http://localhost:5000/update-note-color", {
+      const response = await fetch("http://localhost:8000/update-note-color", {
         method: "PUT",
         credentials: "include",
         headers: {

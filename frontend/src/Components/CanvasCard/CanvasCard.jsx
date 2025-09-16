@@ -15,7 +15,7 @@ function CanvasCard(props) {
   const handleDeleteClick = async (e) => {
     // Handle delete click
     try {
-      const response = await fetch("http://localhost:5000/delete-canvas", {
+      const response = await fetch("http://localhost:8000/delete-canvas", {
         method: "DELETE",
         credentials: "include",
         headers: {

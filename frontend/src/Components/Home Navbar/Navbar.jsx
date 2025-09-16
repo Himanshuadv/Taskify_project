@@ -23,7 +23,7 @@ const Navbar = () => {
 
   const handleDeleteNotification = async () => {
     try {
-      const response = await fetch("http://localhost:5000/delete-notifications", {
+      const response = await fetch("http://localhost:8000/delete-notifications", {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -44,7 +44,7 @@ const Navbar = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch("http://localhost:5000/get-user-profile", {
+      const response = await fetch("http://localhost:8000/get-user-profile", {
         method: "GET",
         credentials: "include",
         headers: {
@@ -77,7 +77,7 @@ const Navbar = () => {
   };
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/logout", {
+      const response = await fetch("http://localhost:8000/logout", {
         method: "GET",
         credentials: "include",
       });
