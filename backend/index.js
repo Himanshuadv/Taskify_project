@@ -629,9 +629,14 @@ app.delete("/delete-notifications", async (req, res) => {
 
 //production script
 app.use(express.static('../frontend/build'));
-app.get("*",(req,res)=>{
-  res.sendFile(path.resolve(__dirname,"frontend","build","index.html"))
-});
+// Serve frontend build in production
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(path.resolve(__dirname, "../frontend/build", "index.html"))
+  );
+}
 
 
 // Start the server
