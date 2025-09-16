@@ -10,6 +10,7 @@ import { useAppContext } from '../context';
 import Message from '../Message/Message';
 import {useTaskContext} from '../TaskContext';
 import {IoMdMenu} from 'react-icons/io'
+import baseurl from '../../baseUrl';
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,7 +24,7 @@ const Navbar = () => {
 
   const handleDeleteNotification = async () => {
     try {
-      const response = await fetch("http://localhost:8000/delete-notifications", {
+      const response = await fetch(`${baseurl}/delete-notifications`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -44,7 +45,7 @@ const Navbar = () => {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch("http://localhost:8000/get-user-profile", {
+      const response = await fetch(`${baseurl}/get-user-profile`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -77,7 +78,7 @@ const Navbar = () => {
   };
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:8000/logout", {
+      const response = await fetch(`${baseurl}/logout`, {
         method: "GET",
         credentials: "include",
       });

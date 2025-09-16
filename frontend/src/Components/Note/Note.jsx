@@ -8,6 +8,7 @@ import Reminder from "../Reminder/Reminder";
 import { LuAlarmClock } from "react-icons/lu";
 import { useTaskContext } from "../TaskContext";
 import "./Note.css";
+import baseurl from "../../baseUrl";
 
 function Card(props) {
 
@@ -25,7 +26,7 @@ function Card(props) {
 
   const handleDeleteClick = async () => {
     try {
-      const response = await fetch("http://localhost:8000/delete-note", {
+      const response = await fetch(`${baseurl}/delete-note`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -57,7 +58,7 @@ function Card(props) {
     const backgroundColor = style.backgroundColor;
     setColor(backgroundColor);
     try {
-      const response = await fetch("http://localhost:8000/update-note-color", {
+      const response = await fetch(`${baseurl}/update-note-color`, {
         method: "PUT",
         credentials: "include",
         headers: {

@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./ToDoEditContainer.css";
 import { useAppContext } from '../context';
 import { useTaskContext } from "../TaskContext";
-
+import baseurl from "../../baseUrl";
 const ToDoEditContainer = (props) => {
 
     const {fetchTasks} = useTaskContext();
@@ -26,7 +26,7 @@ const ToDoEditContainer = (props) => {
     const handleTaskCreated = async () => {
         toggleAddToDoVisibility();
         try {
-            const response = await fetch("http://localhost:8000/task-added-through-editor", {
+            const response = await fetch(`${baseurl}/task-added-through-editor`, {
                 method: "POST",
                 credentials: "include",
                 headers: {

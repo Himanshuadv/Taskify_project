@@ -9,6 +9,7 @@ import { CgNotes } from "react-icons/cg";
 // import { MdDelete } from "react-icons/md";
 // import { IoMdDoneAll } from "react-icons/io";
 import "./CanvasGenerator.css";
+import baseurl from "../../baseUrl";
 
 function CanvasGenerator(props) {
   const [canvasDatabase, setCanvasDatabase] = useState([]);
@@ -30,7 +31,7 @@ function CanvasGenerator(props) {
 
   const fetchCanvases = async () => {
     try {
-      const response = await fetch("http://localhost:8000/get-canvases", {
+      const response = await fetch(`${baseurl}/get-canvases`, {
         method: "GET",
         credentials: "include",
         headers: {

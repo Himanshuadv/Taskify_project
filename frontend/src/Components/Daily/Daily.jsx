@@ -5,7 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { useAppContext } from "../context";
 import { RiMenu2Fill } from "react-icons/ri";
 import { VscTriangleRight } from "react-icons/vsc";
-
+import baseurl from "../../baseUrl";
 
 const Daily = (props) => {
 
@@ -36,7 +36,7 @@ const Daily = (props) => {
   };
   const handleDailyTaskDelete = async () => {
     try {
-      const response = await fetch("http://localhost:8000/delete-daily-task", {
+      const response = await fetch(`${baseurl}/delete-daily-task`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -64,7 +64,7 @@ const Daily = (props) => {
     // Make an HTTP request to update the task's status
     try {
       const response = await fetch(
-        "http://localhost:8000/update-daily-status",
+        `${baseurl}/update-daily-status`,
         {
           method: "PUT",
           credentials: "include",

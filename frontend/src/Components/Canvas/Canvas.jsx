@@ -7,6 +7,7 @@ import {FaHighlighter} from 'react-icons/fa';
 import { SketchPicker } from 'react-color';
 import {IoArrowBackOutline} from 'react-icons/io5';
 import "./Canvas.css";
+import baseurl from "../../baseUrl";
 
 const Canvas = (props) => {
 
@@ -42,7 +43,7 @@ const Canvas = (props) => {
   const handleSaveCanvas = async () => {
     // code for saving the canvas to the mongoDB
     try {
-      const response = await fetch("http://localhost:8000/canvas", {
+      const response = await fetch(`${baseurl}/canvas`, {
         method: "POST",
         credentials: "include",
         headers: {

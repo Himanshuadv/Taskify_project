@@ -4,7 +4,7 @@ import { useAppContext } from "../context";
 import { RiMenu2Fill } from "react-icons/ri";
 import { VscTriangleRight } from "react-icons/vsc";
 import { RiDeleteBin6Line } from "react-icons/ri";
-
+import baseurl from "../../baseUrl";
 const Task = (props) => {
   const { toggleAddToDoVisibility } = useAppContext();
   const [clicked, setClicked] = useState(false);
@@ -26,7 +26,7 @@ const Task = (props) => {
   };
   const handleToDoDelete = async () => {
     try {
-      const response = await fetch("http://localhost:8000/delete-to-do", {
+      const response = await fetch(`${baseurl}/delete-to-do`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -52,7 +52,7 @@ const Task = (props) => {
     setClicked(true);
     // Make an HTTP request to update the task's status
     try {
-      const response = await fetch("http://localhost:8000/update-task-status", {
+      const response = await fetch(`{baseurl}/update-task-status`, {
         method: "PUT",
         credentials: "include",
         headers: {

@@ -3,7 +3,7 @@ import "./Column.css";
 import Task from "../Task/Task";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useTaskContext } from "../TaskContext"; // Import the context hook
-
+import baseurl from "../../baseUrl";
 const Column = () => {
   // Replace local state with context state
   const { activeTasks, completedTasks, fetchTasks, setActiveTasks, setCompletedTasks, searchTask } = useTaskContext();
@@ -43,7 +43,7 @@ const Column = () => {
 
     try {
       setTasksAdded(true);
-      const response = await fetch("http://localhost:8000/task", {
+      const response = await fetch(`${baseurl}/task`, {
         method: "POST",
         credentials: "include",
         headers: {

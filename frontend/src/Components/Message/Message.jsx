@@ -2,14 +2,14 @@ import React from 'react'
 import './Message.css'
 import { BiMessageSquareDetail } from "react-icons/bi";
 import { useTaskContext } from '../TaskContext';
-
+import baseurl from '../../baseUrl';
 const Message = (props) => {
 
     const {fetchNotifications} = useTaskContext();
 
     const handleMsgSeen = async () => {
         try {
-            const response = await fetch("http://localhost:8000/update-msg-status", {
+            const response = await fetch(`{baseurl}/update-msg-status`, {
                 method: "PUT",
                 credentials: "include",
                 headers: {

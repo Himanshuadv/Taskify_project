@@ -10,7 +10,7 @@ import { signInWithPopup } from "firebase/auth";
 import { AiOutlineGithub } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
-
+import baseurl from "../../baseUrl";
 const Signup = () => {
   // const [googleEmail, setGoogleEmail] = useState("");
   // const [gitHubEmail, setGitHubEmail] = useState("");
@@ -32,7 +32,7 @@ const Signup = () => {
       formData.email = user.email.trim();
       formData.name = user.displayName.trim();
       formData.password =user.uid.trim();
-      const response = await fetch("http://localhost:8000/signup-google", {
+      const response = await fetch(`${baseurl}/signup-google`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -80,7 +80,7 @@ const Signup = () => {
         password: password, // Replace this with a secure method for generating passwords
       };
   
-      const response = await fetch("http://localhost:8000/signup-google", {
+      const response = await fetch(`${baseurl}/signup-google`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -110,7 +110,7 @@ const Signup = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/signup", {
+      const response = await fetch(`${baseurl}/signup`, {
         method: "POST",
         credentials: "include",
         headers: {

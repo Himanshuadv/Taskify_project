@@ -10,7 +10,7 @@ import { signInWithPopup } from "firebase/auth";
 import { AiOutlineGithub } from "react-icons/ai";
 import { AiOutlineEye } from "react-icons/ai";
 import { AiOutlineEyeInvisible } from "react-icons/ai";
-
+import baseurl from "../../baseUrl";
 
 
 const Signin = () => {
@@ -29,7 +29,7 @@ const Signin = () => {
       loginFormData.email = user.email;
       loginFormData.password =user.uid;
       
-      const response = await fetch("http://localhost:8000/signin-google", {
+      const response = await fetch(`${baseurl}/signin-google`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -66,7 +66,7 @@ const Signin = () => {
         password: password, // Replace this with a secure method for generating passwords
       };
   
-      const response = await fetch("http://localhost:8000/signin-google", {
+      const response = await fetch(`${baseurl}/signin-google`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -91,7 +91,7 @@ const Signin = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/signin", {
+      const response = await fetch(`${baseurl}/signin`, {
         method: "POST",
         credentials: "include",
         headers: {

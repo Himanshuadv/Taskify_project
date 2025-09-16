@@ -1,4 +1,8 @@
 const express = require("express");
+const dotenv = require("dotenv");
+dotenv.config({
+  path: "./config.env",
+});
 const session = require("express-session");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
@@ -624,7 +628,7 @@ app.delete("/delete-notifications", async (req, res) => {
 });
 
 //production script
-app.use(express.static('./frontend/build'));
+app.use(express.static('../frontend/build'));
 app.get("*",(req,res)=>{
   res.sendFile(path.resolve(__dirname,"frontend","build","index.html"))
 });

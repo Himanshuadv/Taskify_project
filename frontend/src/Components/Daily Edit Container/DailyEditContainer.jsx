@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './DailyEditContainer.css'
 import { useAppContext } from '../context';
 import { useTaskContext } from '../TaskContext';
+import baseurl from '../../baseUrl';
 
 const DailyEditContainer = () => {
 
@@ -24,7 +25,7 @@ const DailyEditContainer = () => {
     const handleSaveDaily = async () => {
       toggleAddDailyVisibility();
       try {
-        const response = await fetch("http://localhost:8000/daily-added-through-editor", {
+        const response = await fetch(`${baseurl}/daily-added-through-editor`, {
           method: "POST",
           credentials: "include",
           headers: {

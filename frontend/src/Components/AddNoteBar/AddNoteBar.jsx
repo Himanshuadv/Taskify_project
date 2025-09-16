@@ -9,12 +9,13 @@ import {AiOutlineClose} from "react-icons/ai"
 // import Reminder from '../Reminder/Reminder';
 import Card from '../Note/Note';
 import { CgNotes } from 'react-icons/cg';
+import baseUrl from '../../baseUrl';
 
 function AddNoteBar(props)
 {
   const fetchNotes = async () => {
       try {
-          const response = await fetch("http://localhost:8000/get-notes", {
+          const response = await fetch(`${baseUrl}/get-notes`, {
           method: "GET",
           credentials: "include",
           headers: {
@@ -62,8 +63,8 @@ function AddNoteBar(props)
     }
     else
     {try {
-      const response = await fetch("http://localhost:8000/note", {
-        method: "POST",
+      const response = await fetch(`${baseUrl}/note`, {
+       method: "POST",
         credentials: "include",
         headers: {
           "Content-Type": "application/json",

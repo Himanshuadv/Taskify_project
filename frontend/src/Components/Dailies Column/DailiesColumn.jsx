@@ -3,6 +3,7 @@ import "./DailiesColumn.css";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Daily from "../Daily/Daily";
 import { useTaskContext } from "../TaskContext";
+import baseurl from "../../baseUrl";
 
 const DailiesColumn = () => {
   const [clicked, setClicked] = useState("all");
@@ -24,7 +25,7 @@ const DailiesColumn = () => {
     }
     try {
       setDailiesAdded(true);
-      const response = await fetch("http://localhost:8000/dailies", {
+      const response = await fetch(`${baseurl}/dailies`, {
         method: "POST",
         credentials: "include",
         headers: {

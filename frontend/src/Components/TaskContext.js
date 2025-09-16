@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAppContext } from './context';
-
+import baseurl from '../baseUrl';
 const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
@@ -25,7 +25,7 @@ export const TaskProvider = ({ children }) => {
 
   const fetchDailies = async () => {
     try {
-      const response = await fetch("http://localhost:8000/get-dailies", {
+      const response = await fetch(`{baseurl}/get-dailies`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -51,7 +51,7 @@ export const TaskProvider = ({ children }) => {
 
   const saveNewNotification = async (e) => {
     try {
-      const response = await fetch("http://localhost:8000/notification", {
+      const response = await fetch(`{baseurl}/notification`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -77,7 +77,7 @@ export const TaskProvider = ({ children }) => {
 
   const setNoteReminder = async (e) => {
     try {
-      const response = await fetch("http://localhost:8000/update-note-reminder", {
+      const response = await fetch(`{baseurl}/update-note-reminder`, {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -127,7 +127,7 @@ export const TaskProvider = ({ children }) => {
 
   const fetchNotifications = async () => {
     try {
-      const response = await fetch("http://localhost:8000/get-notification", {
+      const response = await fetch(`{baseurl}/get-notification`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -147,7 +147,7 @@ export const TaskProvider = ({ children }) => {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch("http://localhost:8000/get-tasks", {
+      const response = await fetch(`{baseurl}/get-tasks`, {
         method: "GET",
         credentials: "include",
         headers: {
