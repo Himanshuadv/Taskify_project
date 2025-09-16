@@ -30,7 +30,7 @@ jobs:
         run: |
           npm install
           CI=false npm run build
-          npm run build
+  
 
       # 👇 Install backend
       - name: Install backend deps
@@ -73,6 +73,7 @@ jobs:
           package: .
 
           
+
 
 
 
