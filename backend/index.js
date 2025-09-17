@@ -45,41 +45,63 @@ const allowedOrigins = [
   "https://blue-flower-0d1b07700.2.azurestaticapps.net"
 ];
 
-const corsOptions = {
-  origin: function(origin, callback){
-    if(!origin) return callback(null, true);
-    if(allowedOrigins.indexOf(origin) !== -1){
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
+// const corsOptions = {
+//   origin: function(origin, callback){
+//     if(!origin) return callback(null, true);
+//     if(allowedOrigins.indexOf(origin) !== -1){
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true,
+//   optionsSuccessStatus: 200, // Fixed: Added missing comma
+//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//   allowedHeaders: ["Content-Type", "Authorization"]
+// };
+
+// // Trust proxy for Azure App Service
+// app.set('trust proxy', 1);
+
+// app.use(cors(corsOptions));
+// app.options("*", cors(corsOptions));
+
+// // Body parser & session
+// app.use(express.json());
+// app.use(session({
+//   secret: "qw1er2ty3ui4op5",
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {
+//     secure: true,
+//     sameSite: "None",
+//     httpOnly: true, // Add this for security
+//     maxAge: 24 * 60 * 60 * 1000 // Add explicit expiry
+//   }
+// }));
+
+// Temporary simplified CORS for debugging
+app.use(cors({
+  origin: true, // Allow all origins temporarily for testing
   credentials: true,
-  optionsSuccessStatus: 200, // Fixed: Added missing comma
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-};
-
-// Trust proxy for Azure App Service
-app.set('trust proxy', 1);
-
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
-
-// Body parser & session
-app.use(express.json());
-app.use(session({
-  secret: "qw1er2ty3ui4op5",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: true,
-    sameSite: "None",
-    httpOnly: true, // Add this for security
-    maxAge: 24 * 60 * 60 * 1000 // Add explicit expiry
-  }
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
 }));
 
+// Ensure trust proxy is set
+app.set('trust proxy', 1);
+
+// Handle preflight for all routes
+app.options('*', cors());
+//Add this before your CORS middleware to see what's happening:
+
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  console.log('Origin:', req.headers.origin);
+  console.log('Headers:', req.headers);
+  next();
+});
 
 
 // Route for user authentication
