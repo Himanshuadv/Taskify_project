@@ -38,7 +38,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: node-app
-          path: .
+          path: ./backend
 
   deploy:
     runs-on: ubuntu-latest
@@ -69,9 +69,10 @@ jobs:
         with:
           app-name: 'taskify-backend'
           slot-name: 'Production'
-          package: .
+          package: './backend'
 
           
+
 
 
 
