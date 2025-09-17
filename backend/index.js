@@ -27,10 +27,10 @@ const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true, // Allow cookies and credentials
 };
-app.use(cors({
-  origin: "http://localhost:3000",  // your frontend URL
-  credentials: true,                // if you’re using cookies or auth headers
-}));
+// app.use(cors({
+//   origin: "http://localhost:3000",  // your frontend URL
+//   credentials: true,                // if you’re using cookies or auth headers
+// }));
 app.use(express.json());
 app.use(
   session({
