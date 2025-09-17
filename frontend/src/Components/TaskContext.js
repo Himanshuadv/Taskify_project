@@ -51,7 +51,7 @@ export const TaskProvider = ({ children }) => {
 
   const saveNewNotification = async (e) => {
     try {
-      const response = await fetch(`{baseurl}/notification`, {
+      const response = await fetch(`${baseurl}/notification`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -77,7 +77,7 @@ export const TaskProvider = ({ children }) => {
 
   const setNoteReminder = async (e) => {
     try {
-      const response = await fetch(`{baseurl}/update-note-reminder`, {
+      const response = await fetch(`${baseurl}/update-note-reminder`, {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -127,7 +127,7 @@ export const TaskProvider = ({ children }) => {
 
   const fetchNotifications = async () => {
     try {
-      const response = await fetch(`{baseurl}/get-notification`, {
+      const response = await fetch(`${baseurl}/get-notification`, {
         method: "GET",
         credentials: "include",
         headers: {
