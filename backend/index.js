@@ -640,16 +640,16 @@ app.delete("/delete-notifications", async (req, res) => {
   }
 });
 
-const buildPath = path.join(__dirname, "build"); // build folder inside backend
-  app.use(express.static(buildPath));
+// const buildPath = path.join(__dirname, "build"); // build folder inside backend
+//   app.use(express.static(buildPath));
 
-  // Catch-all: serve index.html for React routes
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(buildPath, "index.html"));
-  });
-app.get("/", (req, res) => {
-  res.send("API is running...");
-});
+//   // Catch-all: serve index.html for React routes
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.join(buildPath, "index.html"));
+//   });
+// app.get("/", (req, res) => {
+//   res.send("API is running...");
+// });
 
 // Start the server
 const port = process.env.PORT || 8000;
