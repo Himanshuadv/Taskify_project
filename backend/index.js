@@ -36,6 +36,10 @@ connectDb();
 //   methods: ["GET", "POST", "PUT", "DELETE"],
 //   credentials: true
 // }));
+
+// -------------------
+// CORS Setup (global, top)
+// -------------------
 const allowedOrigins = [
   "http://localhost:3000",
   "https://blue-flower-0d1b07700.2.azurestaticapps.net"
@@ -43,33 +47,36 @@ const allowedOrigins = [
 
 const corsOptions = {
   origin: function(origin, callback){
-    if(!origin) return callback(null, true); // allow non-browser requests
+    if(!origin) return callback(null, true); // allow non-browser requests (like Postman)
     if(allowedOrigins.indexOf(origin) !== -1){
-      callback(null, true)
+      callback(null, true);
     } else {
-      callback(new Error("Not allowed by CORS"))
+      callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true,
-  methods: ["GET","POST","PUT","DELETE","OPTIONS"],
-  allowedHeaders: ["Content-Type","Authorization"]
+  credentials: true, // allow cookies
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions));
+app.options("*", cors(corsOptions)); // preflight for all routes
 
+// -------------------
+// Body parser & session
+// -------------------
 app.use(express.json());
-app.use(
-  session({
-    secret: "qw1er2ty3ui4op5", // Replace with a secure secret key
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: true, // Set to true for HTTPS
-       sameSite: "None",   // allow cross-site cookies
-    },
-  })
-);
+
+app.use(session({
+  secret: "qw1er2ty3ui4op5",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: true,    // must be true for HTTPS frontend
+    sameSite: "None", // allow cross-site cookies
+  }
+}));
+
 
 // Route for user authentication
 app.post("/api/signup", async function (req, res) {
