@@ -44,6 +44,45 @@ const allowedOrigins = [
   "http://localhost:3000",
   "https://blue-flower-0d1b07700.2.azurestaticapps.net"
 ];
+// Trust proxy must be set before other middleware
+app.set('trust proxy', 1);
+
+// Debug middleware to log requests and headers (add before CORS)
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+  console.log('Origin:', req.headers.origin);
+  console.log('Headers:', req.headers);
+  next();
+});
+
+// Simplified CORS config for testing - allow all origins temporarily
+app.use(cors({
+  origin: true, // Allows all origins
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
+}));
+
+// Handle preflight OPTIONS requests for all routes
+app.options('*', cors());
+
+// Body parser
+app.use(express.json());
+
+// Session middleware
+app.use(session({
+  secret: "qw1er2ty3ui4op5",
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: true,        // Must be true for HTTPS
+    sameSite: "None",    // Allows cross-site cookies
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000
+  }
+}));
+
 
 // const corsOptions = {
 //   origin: function(origin, callback){
@@ -80,21 +119,7 @@ const allowedOrigins = [
 //   }
 // }));
 
-// Temporary simplified CORS for debugging
-app.use(cors({
-  origin: true, // Allow all origins temporarily for testing
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 200
-}));
 
-// Ensure trust proxy is set
-app.set('trust proxy', 1);
-
-// Handle preflight for all routes
-app.options('*', cors());
-//Add this before your CORS middleware to see what's happening:
 
 app.use((req, res, next) => {
   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
