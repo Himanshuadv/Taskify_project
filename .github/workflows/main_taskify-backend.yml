@@ -29,6 +29,9 @@ jobs:
           npm install
           npm run build --if-present
           npm start
+        env:
+          DATABASE: ${{ secrets.DATABASE }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           
 
       - name: Upload artifact for deployment job
@@ -69,5 +72,6 @@ jobs:
           package: .
 
           
+
 
 
