@@ -69,9 +69,10 @@ jobs:
         with:
           app-name: 'taskify-backend'
           slot-name: 'Production'
-          package: './backend'
+          package: ./backend
 
           
+
 
 
 
