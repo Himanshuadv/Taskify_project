@@ -118,7 +118,7 @@ const Signup = () => {
         },
         body: JSON.stringify(formData),
       });
-
+      console.log(response);
       if (response.ok) {
         navigate("/home");
       } else {
