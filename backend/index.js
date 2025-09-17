@@ -129,7 +129,7 @@ app.post("/api/signup-google", async function (req, res) {
   }
 });
 
-app.post("api/signin-google", async function (req, res) {
+app.post("/api/signin-google", async function (req, res) {
   try {
     const { email, password } = req.body;
     const registeredUser = await GoogleAuth.findOne({ email: email });
@@ -146,7 +146,7 @@ app.post("api/signin-google", async function (req, res) {
   }
 });
 
-app.post("api/signin", async function (req, res) {
+app.post("/api/signin", async function (req, res) {
   try {
     const { email, password } = req.body;
     const registeredUser = await User.findOne({ email: email });
@@ -362,7 +362,7 @@ app.put('/api/update-note-color', async function(req,res){
 });
 
 // api code to delete the note
-app.delete('/delete-note', async function(req,res){
+app.delete('/api/delete-note', async function(req,res){
   try {
     const { id } = req.body;
     const deleteNoteCounter = await Note.deleteOne({ _id: id });
@@ -380,7 +380,7 @@ app.delete('/delete-note', async function(req,res){
 });
 
 // api code to update note color
-app.put('/update-note-reminder', async function(req,res){
+app.put('/api/update-note-reminder', async function(req,res){
   try {
     const { reminder, id , message } = req.body;
     const note = await Note.findOne({ _id: id });
@@ -402,7 +402,7 @@ app.put('/update-note-reminder', async function(req,res){
 });
 
 // api code to get notes of current user
-app.get('/get-notes', async function(req,res){
+app.get('/api/get-notes', async function(req,res){
   const currentUserId = req.session.userId; // Retrieve user ID from the session
   const noteData = await Note.find({
     userid: currentUserId,
@@ -411,7 +411,7 @@ app.get('/get-notes', async function(req,res){
 });
 
 // api code to save canvases to the database
-app.post('/canvas', async function (req, res) {
+app.post('/api/canvas', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
   try {
     const { line, title } = req.body;
@@ -429,7 +429,7 @@ app.post('/canvas', async function (req, res) {
 });
 
 // api code to update canvas
-app.put('/update-canvas', async function (req, res) {
+app.put('/api/update-canvas', async function (req, res) {
   try {
     const { line, title, canvasId } = req.body;
     
@@ -446,7 +446,7 @@ app.put('/update-canvas', async function (req, res) {
 });
 
 // api code to delete canvas 
-app.delete("/delete-canvas", async function (req, res){
+app.delete("/api/delete-canvas", async function (req, res){
   try {
     const {id} = req.body;
     const deletionResult = await Canvas.deleteOne({ _id: id });
@@ -463,7 +463,7 @@ app.delete("/delete-canvas", async function (req, res){
 });
 
 // api code to fetch canvases from database and send the info to react app
-app.get('/get-canvases', async function (req, res) {
+app.get('/api/get-canvases', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
   const canvasData = await Canvas.find({
     userid: currentUserId,
@@ -472,7 +472,7 @@ app.get('/get-canvases', async function (req, res) {
 });
 
 //api code to add daily to db
-app.post('/dailies', async function (req, res) {
+app.post('/api/dailies', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
   try {
     const { title } = req.body;
@@ -491,7 +491,7 @@ app.post('/dailies', async function (req, res) {
 });
 
 // api code to fetch daily
-app.get('/get-dailies', async function (req, res) {
+app.get('/api/get-dailies', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
   const dailyData = await Daily.find({userid: currentUserId,
  });
@@ -499,7 +499,7 @@ app.get('/get-dailies', async function (req, res) {
 });
 
 // api code to complete a daily
-app.put('/update-daily-status', async function (req, res) {
+app.put('/api/update-daily-status', async function (req, res) {
   try {
     const { dailyId } = req.body;
     const daily = await Daily.findOne({ _id: dailyId });
@@ -531,7 +531,7 @@ schedule.scheduleJob('0 0 * * *', async () => {
 });
 
 //To delete a daily task
-app.delete("/delete-daily-task", async (req, res) => {
+app.delete("/api/delete-daily-task", async (req, res) => {
   try {
     const { dailyId } = req.body;
 
@@ -556,7 +556,7 @@ app.delete("/delete-daily-task", async (req, res) => {
 });
 
 // notification getting through backend
-app.get('/get-notification', async function (req, res) {
+app.get('/api/get-notification', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
   const NotificationData = await Notification.find({userid: currentUserId,
   });
@@ -564,7 +564,7 @@ app.get('/get-notification', async function (req, res) {
 });
 
 // notification saving through backend
-app.post('/notification', async function (req, res) {
+app.post('/api/notification', async function (req, res) {
   // const email = await User.find({_id: req.session.userId}).email;
     try {
   //     const transporter = nodemailer.createTransport({
@@ -609,7 +609,7 @@ app.post('/notification', async function (req, res) {
   }
 });
 
-app.put('/update-notification', function (req, res) {
+app.put('/api/update-notification', function (req, res) {
   try {
     const {id} = req.body;
     const notification = Notification.findOne({ id: id});
@@ -623,7 +623,7 @@ app.put('/update-notification', function (req, res) {
 });
 
 // update message status
-app.put('/update-msg-status', async function (req, res) {
+app.put('/api/update-msg-status', async function (req, res) {
   const id = req.body.notificationId;
   try {
     const notification = await Notification.findOne({ _id: id});
@@ -637,7 +637,7 @@ app.put('/update-msg-status', async function (req, res) {
 });
 
 // delete notifications for user
-app.delete("/delete-notifications", async (req, res) => {
+app.delete("/api/delete-notifications", async (req, res) => {
   const currentUser = req.session.userId;
 
   try {
