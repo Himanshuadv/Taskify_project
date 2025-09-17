@@ -106,29 +106,37 @@ const Signup = () => {
   // }, []);
   
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+ const handleSubmit = async (event) => {
+  event.preventDefault();
 
+  try {
+    const response = await fetch(`${baseurl}/signup`, {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+
+    // Try to parse JSON safely
+    let data;
     try {
-      const response = await fetch(`${baseurl}/signup`, {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      console.log(response);
-      if (response.ok) {
-        navigate("/home");
-      } else {
-        const data = await response.json();
-        alert(data.errorMessage);
-      }
-    } catch (error) {
-      console.error("Error", error);
+      data = await response.json();
+    } catch {
+      data = null; // not JSON
     }
-  };
+
+    if (response.ok) {
+      console.log("Signup success:", data);
+      navigate("/home");
+    } else {
+      const msg = data?.errorMessage || `Signup failed with status ${response.status}`;
+      alert(msg);
+    }
+  } catch (error) {
+    console.error("Network or fetch error:", error);
+    alert("Network error. Please try again.");
+  }
+};
 
   const handleChange = (event) => {
     const { name, value } = event.target;
