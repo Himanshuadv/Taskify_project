@@ -44,7 +44,7 @@ app.use(
 );
 
 // Route for user authentication
-app.post("/signup", async function (req, res) {
+app.post("/api/signup", async function (req, res) {
   try {
     const { name, email, password } = req.body;
     if(email && password) {
@@ -78,7 +78,7 @@ app.post("/signup", async function (req, res) {
   }
 });
 
-app.post("/signup-google", async function (req, res) {
+app.post("/api/signup-google", async function (req, res) {
   try {
     const { name, email, password } = req.body;
 
@@ -102,7 +102,7 @@ app.post("/signup-google", async function (req, res) {
   }
 });
 
-app.post("/signin-google", async function (req, res) {
+app.post("api/signin-google", async function (req, res) {
   try {
     const { email, password } = req.body;
     const registeredUser = await GoogleAuth.findOne({ email: email });
@@ -119,7 +119,7 @@ app.post("/signin-google", async function (req, res) {
   }
 });
 
-app.post("/signin", async function (req, res) {
+app.post("api/signin", async function (req, res) {
   try {
     const { email, password } = req.body;
     const registeredUser = await User.findOne({ email: email });
@@ -141,7 +141,7 @@ app.post("/signin", async function (req, res) {
   }
 });
 
-app.get("/get-user-profile", async (req, res) => {
+app.get("/api/get-user-profile", async (req, res) => {
   const currentUserId = req.session.userId;
   try {
     const user = await User.findOne({ _id: currentUserId });
@@ -157,7 +157,7 @@ app.get("/get-user-profile", async (req, res) => {
   }
 });
 
-app.get('/logout', async (req, res) => {
+app.get('/api/logout', async (req, res) => {
   try {
     await req.session.destroy();
     res.status(200).json({ message: 'Logout successful' });
@@ -167,7 +167,7 @@ app.get('/logout', async (req, res) => {
   }
 });
 
-app.post('/task', async function (req, res) {
+app.post('/api/task', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
   try {
     const { title } = req.body;
@@ -185,7 +185,7 @@ app.post('/task', async function (req, res) {
 });
 
 // api to delete a to-do task
-app.delete("/delete-to-do", async (req, res) => {
+app.delete("/api/delete-to-do", async (req, res) => {
   try {
     const { todoId } = req.body;
 
@@ -210,7 +210,7 @@ app.delete("/delete-to-do", async (req, res) => {
 });
 
 // api to  create daily using edit box
-app.post('/daily-added-through-editor', async function (req, res) {
+app.post('/api/daily-added-through-editor', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID
   try {
     const { title, note, checklist, tags } = req.body;
@@ -236,7 +236,7 @@ app.post('/daily-added-through-editor', async function (req, res) {
   }
 });
 
-app.post('/task-added-through-editor', async function (req, res) {
+app.post('/api/task-added-through-editor', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
 
   try {
@@ -265,7 +265,7 @@ app.post('/task-added-through-editor', async function (req, res) {
 });
 
 
-app.get('/get-tasks', async function (req, res) {
+app.get('/api/get-tasks', async function (req, res) {
   const currentUserId = req.session.userId; // Retrieve user ID from the session
   const taskData = await Task.find({userid: currentUserId,
  });
@@ -293,7 +293,7 @@ app.put('/update-task-status', async function (req, res) {
 });
 
 // api code to save notes to the database
-app.post('/note',async function(req,res){
+app.post('/api/note',async function(req,res){
   const currentUserId = req.session.userId;
   try{
     const {note,title,color,reminder} = req.body;
@@ -314,7 +314,7 @@ app.post('/note',async function(req,res){
 });
 
 // api code to update note color
-app.put('/update-note-color', async function(req,res){
+app.put('/api/update-note-color', async function(req,res){
   try {
     const { color, id } = req.body;
     const note = await Note.findOne({ _id: id });
