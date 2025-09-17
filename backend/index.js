@@ -31,6 +31,11 @@ const corsOptions = {
 //   origin: "http://localhost:3000",  // your frontend URL
 //   credentials: true,                // if you’re using cookies or auth headers
 // }));
+app.use(cors({
+  origin: "https://blue-flower-0d1b07700.2.azurestaticapps.net", // your frontend domain
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 app.use(express.json());
 app.use(
   session({
