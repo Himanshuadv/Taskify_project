@@ -4,9 +4,7 @@ const mongoose = require("mongoose");
 if (!process.env.DATABASE) {
     throw new Error("❌ DATABASE env variable missing");
   }
-  if (!process.env.DATABASE_PASSWORD) {
-    throw new Error("❌ DATABASE_PASSWORD env variable missing");
-  }
+ 
 const DB = process.env.DATABASE.replace(
     "<PASSWORD>",
     process.env.DATABASE_PASSWORD
