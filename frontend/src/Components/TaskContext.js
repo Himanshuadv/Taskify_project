@@ -25,7 +25,7 @@ export const TaskProvider = ({ children }) => {
 
   const fetchDailies = async () => {
     try {
-      const response = await fetch(`{baseurl}/get-dailies`, {
+      const response = await fetch(`${baseurl}/get-dailies`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -147,7 +147,7 @@ export const TaskProvider = ({ children }) => {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch(`{baseurl}/get-tasks`, {
+      const response = await fetch(`${baseurl}/get-tasks`, {
         method: "GET",
         credentials: "include",
         headers: {
