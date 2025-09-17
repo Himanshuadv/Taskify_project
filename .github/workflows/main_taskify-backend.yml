@@ -56,6 +56,9 @@ jobs:
           client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_BA8B0CEDB5D84F349F7E2698A4C474F3 }}
           tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_AB9AA9F1D2D541ED897BBE465358288F }}
           subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B7CF78C986F44F75BF1D1AFF0D19CD44 }}
+        env:
+          DATABASE: ${{ secrets.DATABASE }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
@@ -66,4 +69,5 @@ jobs:
           package: .
 
           
+
 
