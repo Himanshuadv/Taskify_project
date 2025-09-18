@@ -31,11 +31,7 @@ connectDb();
 //   origin: "http://localhost:3000",  // your frontend URL
 //   credentials: true,                // if you’re using cookies or auth headers
 // }));
-// app.use(cors({
-//   origin: "https://blue-flower-0d1b07700.2.azurestaticapps.net", // your frontend domain
-//   methods: ["GET", "POST", "PUT", "DELETE"],
-//   credentials: true
-// }));
+
 
 // -------------------
 // CORS Setup (global, top)
@@ -57,15 +53,19 @@ app.use((req, res, next) => {
 
 // Simplified CORS config for testing - allow all origins temporarily
 app.use(cors({
-  origin: true, // Allows all origins
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 200
+  origin: "https://blue-flower-0d1b07700.2.azurestaticapps.net", // your frontend domain
+  credentials: true
 }));
+// app.use(cors({
+//   origin: true, // Allows all origins
+//   credentials: true,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+//   optionsSuccessStatus: 200
+// }));
 
 // Handle preflight OPTIONS requests for all routes
-app.options('*', cors());
+// app.options('*', cors());
 
 // Body parser
 app.use(express.json());
