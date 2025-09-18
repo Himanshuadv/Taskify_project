@@ -36,53 +36,66 @@ connectDb();
 // -------------------
 // CORS Setup (global, top)
 // -------------------
-app.set('trust proxy', 1);
 
-// Enhanced CORS configuration
+const allowedOrigins = [
+  "https://blue-flower-0d1b07700.2.azurestaticapps.net", // your prod frontend
+  "http://localhost:3000", // local dev
+];
+
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
+    // Allow requests with no origin (like curl or mobile apps)
     if (!origin) return callback(null, true);
-    
-    const allowedOrigins = [
-      'https://blue-flower-0d1b07700.2.azurestaticapps.net',
-      'http://localhost:3000'
-    ];
-    
     if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(null, true); // Temporarily allow all for debugging
+      return callback(null, true);
     }
+    // Block other origins
+    return callback(new Error("Not allowed by CORS"), false);
   },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "Cookie"],
   optionsSuccessStatus: 200,
-  preflightContinue: false // Let CORS handle preflight completely
+  preflightContinue: false,
 };
 
+// CORS MUST be the first middleware!
 app.use(cors(corsOptions));
+// Explicit preflight handling for all routes
+app.options("*", cors(corsOptions));
 
-// Explicit preflight handler for all API routes
-app.options('/api/*', cors(corsOptions));
-app.options('*', cors(corsOptions));
+// Now continue with your other middleware...
+app.set("trust proxy", 1);
+app.use(express.json());
+app.use(
+  session({
+    secret: "qw1er2ty3ui4op5",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: true, // Must be true for HTTPS
+      sameSite: "None", // Allows cross-site cookies
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
+);
 
 // Body parser
-app.use(express.json());
+// app.use(express.json());
 
-// Session middleware
-app.use(session({
-  secret: "qw1er2ty3ui4op5",
-  resave: false,
-  saveUninitialized: true,
-  cookie: {
-    secure: true,        // Must be true for HTTPS
-    sameSite: "None",    // Allows cross-site cookies
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000
-  }
-}));
+// // Session middleware
+// app.use(session({
+//   secret: "qw1er2ty3ui4op5",
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {
+//     secure: true,        // Must be true for HTTPS
+//     sameSite: "None",    // Allows cross-site cookies
+//     httpOnly: true,
+//     maxAge: 24 * 60 * 60 * 1000
+//   }
+// }));
 
 // // Error handling middleware
 // app.use((error, req, res, next) => {
