@@ -36,36 +36,37 @@ connectDb();
 // -------------------
 // CORS Setup (global, top)
 // -------------------
-const allowedOrigins = [
-  "http://localhost:3000",
-  "https://blue-flower-0d1b07700.2.azurestaticapps.net"
-];
-// Trust proxy must be set before other middleware
 app.set('trust proxy', 1);
 
-// Debug middleware to log requests and headers (add before CORS)
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-  console.log('Origin:', req.headers.origin);
-  console.log('Headers:', req.headers);
-  next();
-});
+// Enhanced CORS configuration
+const corsOptions = {
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    const allowedOrigins = [
+      'https://blue-flower-0d1b07700.2.azurestaticapps.net',
+      'http://localhost:3000'
+    ];
+    
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true); // Temporarily allow all for debugging
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+  optionsSuccessStatus: 200,
+  preflightContinue: false // Let CORS handle preflight completely
+};
 
-// Simplified CORS config for testing - allow all origins temporarily
-app.use(cors({
-  origin: "https://blue-flower-0d1b07700.2.azurestaticapps.net", // your frontend domain
-  credentials: true
-}));
-// app.use(cors({
-//   origin: true, // Allows all origins
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization'],
-//   optionsSuccessStatus: 200
-// }));
+app.use(cors(corsOptions));
 
-// Handle preflight OPTIONS requests for all routes
-// app.options('*', cors());
+// Explicit preflight handler for all API routes
+app.options('/api/*', cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 // Body parser
 app.use(express.json());
@@ -77,56 +78,37 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     secure: true,        // Must be true for HTTPS
-    sameSite: "none",    // Allows cross-site cookies
+    sameSite: "None",    // Allows cross-site cookies
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
 
-
-// const corsOptions = {
-//   origin: function(origin, callback){
-//     if(!origin) return callback(null, true);
-//     if(allowedOrigins.indexOf(origin) !== -1){
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true,
-//   optionsSuccessStatus: 200, // Fixed: Added missing comma
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   allowedHeaders: ["Content-Type", "Authorization"]
-// };
-
-// // Trust proxy for Azure App Service
-// app.set('trust proxy', 1);
-
-// app.use(cors(corsOptions));
-// app.options("*", cors(corsOptions));
-
-// // Body parser & session
-// app.use(express.json());
-// app.use(session({
-//   secret: "qw1er2ty3ui4op5",
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: {
-//     secure: true,
-//     sameSite: "None",
-//     httpOnly: true, // Add this for security
-//     maxAge: 24 * 60 * 60 * 1000 // Add explicit expiry
-//   }
-// }));
-
-
-
-app.use((req, res, next) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
-  console.log('Origin:', req.headers.origin);
-  console.log('Headers:', req.headers);
-  next();
+// Error handling middleware
+app.use((error, req, res, next) => {
+  console.error('Server Error:', error);
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.status(500).json({ error: 'Internal server error' });
 });
+
+// 404 handler
+app.use((req, res) => {
+  console.log(`404 - Route not found: ${req.method} ${req.path}`);
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.status(404).json({ error: 'Route not found' });
+});
+
+
+
+
+// app.use((req, res, next) => {
+//   console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+//   console.log('Origin:', req.headers.origin);
+//   console.log('Headers:', req.headers);
+//   next();
+// });
 
 
 // Route for user authentication
