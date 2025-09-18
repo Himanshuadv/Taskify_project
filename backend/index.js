@@ -84,21 +84,21 @@ app.use(session({
   }
 }));
 
-// Error handling middleware
-app.use((error, req, res, next) => {
-  console.error('Server Error:', error);
-  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.status(500).json({ error: 'Internal server error' });
-});
+// // Error handling middleware
+// app.use((error, req, res, next) => {
+//   console.error('Server Error:', error);
+//   res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   res.status(500).json({ error: 'Internal server error' });
+// });
 
-// 404 handler
-app.use((req, res) => {
-  console.log(`404 - Route not found: ${req.method} ${req.path}`);
-  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.status(404).json({ error: 'Route not found' });
-});
+// // 404 handler
+// app.use((req, res) => {
+//   console.log(`404 - Route not found: ${req.method} ${req.path}`);
+//   res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
+//   res.header('Access-Control-Allow-Credentials', 'true');
+//   res.status(404).json({ error: 'Route not found' });
+// });
 
 
 
