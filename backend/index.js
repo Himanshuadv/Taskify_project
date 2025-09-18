@@ -77,7 +77,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     secure: true,        // Must be true for HTTPS
-    sameSite: "None",    // Allows cross-site cookies
+    sameSite: "none",    // Allows cross-site cookies
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000
   }
